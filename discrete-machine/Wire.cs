@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace discrete_machine
 {
-    public class Wire: IOperation<Wire>
+    public class Wire: IOperation<Wire>, IElement
     {
         public Guid Id { get; set; }
 
@@ -50,6 +50,35 @@ namespace discrete_machine
                 return new ArgumentException("Проблема c входом", "Out");
             In.Value = Out.Value;
             return null;
+        }
+
+
+        public IEnumerable<IConnector> Input
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public IEnumerable<IConnector> Output
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public IEnumerable<IOperation> Operations
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        string IElement.Name
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

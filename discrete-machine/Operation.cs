@@ -16,7 +16,7 @@ namespace discrete_machine
             _reciever = reciever;
         }
 
-        public string Name { get; set; }
+        public string Name { get { return _reciever.Name; } set { throw new NotImplementedException(); } }
         public T Reciever { get { return _reciever; } }
 
         public Func<T, Exception> Exec { get; set; }

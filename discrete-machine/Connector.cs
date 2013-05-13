@@ -27,4 +27,5 @@ namespace discrete_machine
 
     public class ConnectorIn : Connector { }
     public class ConnectorOut : Connector { }
+    public class ConnectorIntern : Connector { }
 }

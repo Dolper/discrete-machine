@@ -10,6 +10,7 @@ namespace discrete_machine.Abstract
     {
         Guid Id { get; }
 
+        String Name { get; set; }
         IEnumerable<IConnector> Input { get; }
         IEnumerable<IConnector> Output { get; }
         IEnumerable<IOperation> Operations { get; }

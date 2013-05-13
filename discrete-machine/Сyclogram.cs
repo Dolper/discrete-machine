@@ -9,11 +9,16 @@ namespace discrete_machine
 {
     public class Сyclogram
     {
-        public IEnumerable<IOperation>[] Operations { get; set; }
+        public IOperation[][] Operations { get; set; }
+
+        //public void Add()
+        //{ 
+        
+        //}
 
         public void Step()
         {
-            throw new NotImplementedException();
+            Operations[0][0].Execute();
         }
     }
 }

@@ -44,6 +44,9 @@
     <Compile Include="Abstract\IOperation.cs" />
     <Compile Include="Connector.cs" />
     <Compile Include="Element.cs" />
+    <Compile Include="Elements\Inverter.cs" />
+    <Compile Include="Elements\Register.cs" />
+    <Compile Include="Elements\Summator.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="Operation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
