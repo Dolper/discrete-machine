@@ -42,7 +42,6 @@
     <Compile Include="Abstract\IConnector.cs" />
     <Compile Include="Abstract\IElement.cs" />
     <Compile Include="Abstract\IOperation.cs" />
-    <Compile Include="Abstract\IUnit.cs" />
     <Compile Include="Connector.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Machine.cs" />

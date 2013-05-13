@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace discrete_machine
 {
     public class Operation<T> : IOperation<T>
-        where T : IUnit
+        where T : IElement
     {
         private readonly T _reciever;
         public Operation(T reciever)
@@ -27,8 +27,8 @@ namespace discrete_machine
         }
     }
 
-    public class Operation : Operation<IUnit>
+    public class Operation : Operation<IElement>
     {
-        public Operation(IUnit reciever) : base(reciever) { }
+        public Operation(IElement reciever) : base(reciever) { }
     }
 }

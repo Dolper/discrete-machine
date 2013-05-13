@@ -25,9 +25,7 @@ namespace discrete_machine
         public string Name { get; set; }
 
         public abstract IEnumerable<IConnector> Input { get; }
-
         public abstract IEnumerable<IConnector> Output { get; }
-
-        public abstract IOperation[] Operations { get; }
+        public abstract IEnumerable<IOperation> Operations { get; }
     }
 }

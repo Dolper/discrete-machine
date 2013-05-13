@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace discrete_machine.Abstract
 {
-    public interface IElement : IUnit
+    public interface IElement
     {
         Guid Id { get; }
 
         IEnumerable<IConnector> Input { get; }
         IEnumerable<IConnector> Output { get; }
+        IEnumerable<IOperation> Operations { get; }
     }
 }
