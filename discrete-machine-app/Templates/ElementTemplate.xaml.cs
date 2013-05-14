@@ -22,6 +22,7 @@ namespace discrete_machine_app.Templates
     {
         public ElementTemplate()
         {
+            // test one
             InitializeComponent();
             Inputs = new List<string> {
                 "1",
@@ -42,10 +43,12 @@ namespace discrete_machine_app.Templates
         private readonly IElement _element;
         public ElementTemplate(IElement element)
         {
+            InitializeComponent();
             _element = element;
+
             InputPanel.ItemsSource = _element.Input;
             OutputPanel.ItemsSource = _element.Output;
-            //InternalsPanel.ItemsSource = _element.;
+            //InternalsPanel.ItemsSource =  Internals;
         }
 
         public IEnumerable<string> Inputs { get; set; }

@@ -13,6 +13,6 @@ namespace discrete_machine_app
     /// </summary>
     public partial class App : Application
     {
-        public static Machine Machine { get; set; }
+        public Machine Machine { get; set; }
     }
 }
