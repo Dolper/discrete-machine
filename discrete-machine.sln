@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8A93A3
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "discrete-machine-app", "discrete-machine-app\discrete-machine-app.csproj", "{7BAABE6D-E569-46F8-82B2-876C677F312E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{170E1333-85C7-44D7-B296-EBC14B21FA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{170E1333-85C7-44D7-B296-EBC14B21FA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{170E1333-85C7-44D7-B296-EBC14B21FA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BAABE6D-E569-46F8-82B2-876C677F312E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BAABE6D-E569-46F8-82B2-876C677F312E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BAABE6D-E569-46F8-82B2-876C677F312E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BAABE6D-E569-46F8-82B2-876C677F312E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
