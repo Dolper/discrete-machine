@@ -9,6 +9,20 @@ namespace discrete_machine
 {
     public abstract class Element: IElement
     {
+        public Element()
+        {
+            Input = new List<IConnector>();
+            Output = new List<IConnector>();
+            Operations = new List<IOperation>();
+        }
+        public Element(string name)
+        {
+            Name = name;
+            Input = new List<IConnector>();
+            Output = new List<IConnector>();
+            Operations = new List<IOperation>();
+        }
+
         private Guid id;
         public Guid Id
         {
@@ -24,8 +38,8 @@ namespace discrete_machine
         }
         public string Name { get; set; }
 
-        public abstract IEnumerable<IConnector> Input { get; }
-        public abstract IEnumerable<IConnector> Output { get; }
-        public abstract IEnumerable<IOperation> Operations { get; }
+        public virtual ICollection<IConnector> Input { get; protected set; }
+        public virtual ICollection<IConnector> Output { get; protected set; }
+        public virtual ICollection<IOperation> Operations { get; protected set; }
     }
 }

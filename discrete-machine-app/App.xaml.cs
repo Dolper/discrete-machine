@@ -1,4 +1,5 @@
 ﻿using discrete_machine;
+using discrete_machine_app.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,6 +14,6 @@ namespace discrete_machine_app
     /// </summary>
     public partial class App : Application
     {
-        public Machine Machine { get; set; }
+        public MachineAdapter Machine { get; set; }
     }
 }

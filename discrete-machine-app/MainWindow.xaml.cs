@@ -1,6 +1,7 @@
 ﻿using discrete_machine;
 using discrete_machine.Abstract;
 using discrete_machine.Elements;
+using discrete_machine_app.Model;
 using discrete_machine_app.Templates;
 using System;
 using System.Collections.Generic;
@@ -28,21 +29,13 @@ namespace discrete_machine_app
             var app = (App)Application.Current;
             InitializeComponent();
 
-            app.Machine = new Machine
+            var machine = app.Machine = new MachineAdapter(new Machine());
+
+            machine.AddElement(new ElementProxy(new Summator() { Name = "Summator1" })
             {
-                Cyclogram = new Сyclogram()
-                {
-                    Operations = new IOperation[0][],
-                },
-                Elements = new Element[]
-                {
-                    new Summator()
-                    {
-                        Name = "Summator1"
-                    },
-                },
-                Wires = new Wire[0],
-            };
+                Top = 20,
+                Left = 100,
+            });
 
             foreach (var element in app.Machine.Elements)
             {

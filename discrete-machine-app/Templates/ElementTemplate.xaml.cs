@@ -1,4 +1,5 @@
 ﻿using discrete_machine.Abstract;
+using discrete_machine_app.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,8 +41,8 @@ namespace discrete_machine_app.Templates
             InternalsPanel.ItemsSource = Internals;
         }
 
-        private readonly IElement _element;
-        public ElementTemplate(IElement element)
+        private readonly ElementProxy _element;
+        public ElementTemplate(ElementProxy element)
         {
             InitializeComponent();
             _element = element;

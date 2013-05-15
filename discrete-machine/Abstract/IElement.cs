@@ -11,8 +11,8 @@ namespace discrete_machine.Abstract
         Guid Id { get; }
 
         String Name { get; set; }
-        IEnumerable<IConnector> Input { get; }
-        IEnumerable<IConnector> Output { get; }
-        IEnumerable<IOperation> Operations { get; }
+        ICollection<IConnector> Input { get; }
+        ICollection<IConnector> Output { get; }
+        ICollection<IOperation> Operations { get; }
     }
 }

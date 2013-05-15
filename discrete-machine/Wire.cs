@@ -28,7 +28,7 @@ namespace discrete_machine
             get { return this; }
         }
 
-        string IOperation<Wire>.Name
+        public string Name
         {
             get
             {
@@ -53,32 +53,19 @@ namespace discrete_machine
         }
 
 
-        public IEnumerable<IConnector> Input
+        public ICollection<IConnector> Input
         {
             get { throw new NotImplementedException(); }
         }
 
-        public IEnumerable<IConnector> Output
+        public ICollection<IConnector> Output
         {
             get { throw new NotImplementedException(); }
         }
 
-        public IEnumerable<IOperation> Operations
+        public ICollection<IOperation> Operations
         {
             get { throw new NotImplementedException(); }
-        }
-
-
-        string IElement.Name
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }
