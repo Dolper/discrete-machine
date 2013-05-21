@@ -42,10 +42,10 @@ namespace discrete_machine
         public int CurrentStep = 0;
         public IOperation[][] Operations { get; set; }
 
-        public void Add(ConditionalOperator @operator, int row)
-        {
-            if (@operator.Comparer()) CurrentStep = row;
-        }
+        //public void Add(ConditionalOperator @operator, int row)
+        //{
+        //    if (@operator.Comparer()) CurrentStep = row;
+        //}
         
         public void Add(IOperation operation, int row)
         {
