@@ -83,7 +83,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\IElementProxy.cs" />
+    <Compile Include="Model\ElementProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -22,7 +22,7 @@ namespace discrete_machine.Elements
             return null;
         }
 
-        public Summator()
+        public Summator(string name) : base(name)
         {
             Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };

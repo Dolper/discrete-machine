@@ -14,7 +14,6 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Canvas x:Name="SchemeCanvas" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Templates:ElementTemplate HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="456" Canvas.Top="44"/>
             </Canvas>
             <Canvas x:Name="CyclogramCanvas" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 

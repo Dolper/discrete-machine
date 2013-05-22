@@ -1,4 +1,6 @@
-﻿using discrete_machine.Abstract;
+﻿using discrete_machine;
+using discrete_machine.Abstract;
+using discrete_machine.Elements;
 using discrete_machine_app.Model;
 using System;
 using System.Collections.Generic;
@@ -21,39 +23,32 @@ namespace discrete_machine_app.Templates
     /// </summary>
     public partial class ElementTemplate : UserControl
     {
-        public ElementTemplate()
-        {
-            // test one
-            InitializeComponent();
-            Inputs = new List<string> {
-                "1",
-                "2",
-            };
-            Outputs = new List<string> {
-                "1",
-            };
-            Internals = new List<string> {
-                "1",
-            };
+        public ElementProxy Model { get; set; }
 
-            InputPanel.ItemsSource = Inputs;
-            OutputPanel.ItemsSource = Outputs;
-            InternalsPanel.ItemsSource = Internals;
-        }
-
-        private readonly ElementProxy _element;
         public ElementTemplate(ElementProxy element)
         {
             InitializeComponent();
-            _element = element;
-
-            InputPanel.ItemsSource = _element.Input;
-            OutputPanel.ItemsSource = _element.Output;
-            //InternalsPanel.ItemsSource =  Internals;
+            Model = element;
+            InitializeBindings();
         }
 
-        public IEnumerable<string> Inputs { get; set; }
-        public IEnumerable<string> Outputs { get; set; }
-        public IEnumerable<string> Internals { get; set; }
+        public ElementTemplate()
+        {
+            InitializeComponent();
+            Model = new ElementProxy(new Summator("Test Element"));
+            InitializeBindings();
+        }
+
+        private void InitializeBindings()
+        {
+            var nameBinding = new Binding("Name");
+            nameBinding.Source = Model;
+            NameLabel.SetBinding(Label.ContentProperty, nameBinding);
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(Model.Name);
+        }
     }
 }

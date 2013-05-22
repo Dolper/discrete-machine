@@ -1,9 +1,7 @@
 ﻿using discrete_machine.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace discrete_machine
 {
@@ -52,7 +50,6 @@ namespace discrete_machine
             return null;
         }
 
-
         public ICollection<IConnector> Input
         {
             get { throw new NotImplementedException(); }
@@ -67,5 +64,7 @@ namespace discrete_machine
         {
             get { throw new NotImplementedException(); }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

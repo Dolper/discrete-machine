@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace discrete_machine.Abstract
 {
-    public interface IElement
+    public interface IElement: INotifyPropertyChanged
     {
         Guid Id { get; }
 

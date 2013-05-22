@@ -3,14 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Height="150" Width="120">
+             mc:Ignorable="d" Height="150" Width="120"
+             DataContext="Model"
+             Canvas.Left="{Binding Path=Left}" Canvas.Top="{Binding Path=Top}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <DataTemplate x:Key="ConnectorsPanel">
             <RadioButton />
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Margin="0,0,10,10">
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="90" Margin="10,10,0,0"/>
+    <Grid>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="130" VerticalAlignment="Top" Width="100" Margin="10,10,0,0">
+            <Label Name="NameLabel" HorizontalAlignment="Right" />
+        </Border>
         <ListView Name="InputPanel" HorizontalAlignment="Left" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
         <ListView Name="OutputPanel" HorizontalAlignment="Right" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
         <ListView Name="InternalsPanel" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemTemplate="{StaticResource ConnectorsPanel}" />

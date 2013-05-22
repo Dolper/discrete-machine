@@ -31,7 +31,7 @@ namespace discrete_machine_app
 
             var machine = app.Machine = new MachineAdapter(new Machine());
 
-            machine.AddElement(new ElementProxy(new Summator() { Name = "Summator1" })
+            machine.AddElement(new ElementProxy(new Summator("Summator1"))
             {
                 Top = 20,
                 Left = 100,

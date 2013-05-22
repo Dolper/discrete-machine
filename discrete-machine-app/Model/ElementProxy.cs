@@ -46,6 +46,13 @@ namespace discrete_machine_app.Model
         {
             get { return Element.Operations; }
         }
+
+        // TODO: make proxy properties changes noticable
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add { _host.PropertyChanged += value; }
+            remove { _host.PropertyChanged -= value; }
+        }
         #endregion
     }
 }

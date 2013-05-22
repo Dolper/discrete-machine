@@ -1,6 +1,7 @@
 ﻿using discrete_machine.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,12 +35,33 @@ namespace discrete_machine
             set
             {
                 id = value;
+                OnPropertyChanged("Id");
             }
         }
-        public string Name { get; set; }
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                OnPropertyChanged("Name");
+                name = value;
+            }
+        }
 
         public virtual ICollection<IConnector> Input { get; protected set; }
         public virtual ICollection<IConnector> Output { get; protected set; }
         public virtual ICollection<IOperation> Operations { get; protected set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string property)
+        {
+            // TODO: make thread safe
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
     }
 }
