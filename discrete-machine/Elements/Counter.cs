@@ -24,9 +24,9 @@ namespace discrete_machine.Elements
 
         public Counter()
         {
-            _input = new IConnector[] { };
-            _output = new IConnector[] { };
-            _operations = new IOperation<Counter>[] { 
+            Input = new IConnector[] { };
+            Output = new IConnector[] { };
+            Operations = new IOperation<Counter>[] { 
                 new Operation<Counter>(this) { 
                     Exec = x => x.Increment() 
                 }, 
@@ -34,26 +34,6 @@ namespace discrete_machine.Elements
                     Exec = x => x.Reset() 
                 }, 
             }.Select(x => x as IOperation);
-        }
-
-        private IEnumerable<IConnector> _input;
-        private IEnumerable<IConnector> _output;
-        private IEnumerable<IOperation> _operations;
-
-
-        public override IEnumerable<IConnector> Input
-        {
-            get { return _input; }
-        }
-
-        public override IEnumerable<IConnector> Output
-        {
-            get { return _output; }
-        }
-
-        public override IEnumerable<Abstract.IOperation> Operations
-        {
-            get { return _operations; }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace discrete_machine.Elements
                 new Operation<Summator>(this) { 
                     Exec = x => x.Sum() 
                 }, 
-            }.Select(x => x as IOperation).ToList();
+            }.Select(x => x as IOperation);
         }
     }
 }

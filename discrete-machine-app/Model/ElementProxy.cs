@@ -32,17 +32,17 @@ namespace discrete_machine_app.Model
             set { Element.Name = value; }
         }
 
-        public ICollection<IConnector> Input
+        public IEnumerable<IConnector> Input
         {
             get { return Element.Input; }
         }
 
-        public ICollection<IConnector> Output
+        public IEnumerable<IConnector> Output
         {
             get { return Element.Output; }
         }
 
-        public ICollection<IOperation> Operations
+        public IEnumerable<IOperation> Operations
         {
             get { return Element.Operations; }
         }

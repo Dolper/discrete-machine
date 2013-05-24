@@ -52,9 +52,9 @@ namespace discrete_machine
             }
         }
 
-        public virtual ICollection<IConnector> Input { get; protected set; }
-        public virtual ICollection<IConnector> Output { get; protected set; }
-        public virtual ICollection<IOperation> Operations { get; protected set; }
+        public virtual IEnumerable<IConnector> Input { get; protected set; }
+        public virtual IEnumerable<IConnector> Output { get; protected set; }
+        public virtual IEnumerable<IOperation> Operations { get; protected set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string property)

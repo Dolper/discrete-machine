@@ -21,33 +21,13 @@ namespace discrete_machine.Elements
 
         public Сonjunctor()
         {
-            _input = new IConnector[] { _a };
-            _output = new IConnector[] { _r };
-            _operations = new IOperation<Сonjunctor>[] { 
+            Input = new IConnector[] { _a };
+            Output = new IConnector[] { _r };
+            Operations = new IOperation<Сonjunctor>[] { 
                 new Operation<Сonjunctor>(this) { 
                     Exec = x => x.Сonjunct() 
                 }, 
             }.Select(x => x as IOperation);
-        }
-
-        private IEnumerable<IConnector> _input;
-        private IEnumerable<IConnector> _output;
-        private IEnumerable<IOperation> _operations;
-
-
-        public override IEnumerable<IConnector> Input
-        {
-            get { return _input; }
-        }
-
-        public override IEnumerable<IConnector> Output
-        {
-            get { return _output; }
-        }
-
-        public override IEnumerable<Abstract.IOperation> Operations
-        {
-            get { return _operations; }
         }
     }
 }

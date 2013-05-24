@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="150" Width="120"
              DataContext="Model"
-             Canvas.Left="{Binding Path=Left}" Canvas.Top="{Binding Path=Top}" Loaded="UserControl_Loaded">
+             Canvas.Left="{Binding Left}" Canvas.Top="{Binding Top}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <DataTemplate x:Key="ConnectorsPanel">
             <RadioButton />
@@ -13,10 +13,10 @@
     </UserControl.Resources>
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="130" VerticalAlignment="Top" Width="100" Margin="10,10,0,0">
-            <Label Name="NameLabel" HorizontalAlignment="Right" />
+            <Label HorizontalAlignment="Right" Content="{Binding Name}"/>
         </Border>
-        <ListView Name="InputPanel" HorizontalAlignment="Left" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
-        <ListView Name="OutputPanel" HorizontalAlignment="Right" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
-        <ListView Name="InternalsPanel" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemTemplate="{StaticResource ConnectorsPanel}" />
+        <ListView Name="InputPanel" ItemsSource="{Binding Input}" HorizontalAlignment="Left" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
+        <ListView Name="OutputPanel" ItemsSource="{Binding Output}" HorizontalAlignment="Right" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
+        <ListView Name="InternalsPanel" ItemsSource="{Binding Internals}" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemTemplate="{StaticResource ConnectorsPanel}" />
     </Grid>
 </UserControl>

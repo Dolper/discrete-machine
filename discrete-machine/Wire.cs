@@ -50,21 +50,22 @@ namespace discrete_machine
             return null;
         }
 
-        public ICollection<IConnector> Input
+        public IEnumerable<IConnector> Input
         {
             get { throw new NotImplementedException(); }
         }
 
-        public ICollection<IConnector> Output
+        public IEnumerable<IConnector> Output
         {
             get { throw new NotImplementedException(); }
         }
 
-        public ICollection<IOperation> Operations
+        public IEnumerable<IOperation> Operations
         {
             get { throw new NotImplementedException(); }
         }
 
+        // TODO: implement
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

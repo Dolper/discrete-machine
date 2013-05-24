@@ -41,9 +41,7 @@ namespace discrete_machine_app.Templates
 
         private void InitializeBindings()
         {
-            var nameBinding = new Binding("Name");
-            nameBinding.Source = Model;
-            NameLabel.SetBinding(Label.ContentProperty, nameBinding);
+            this.DataContext = Model;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
