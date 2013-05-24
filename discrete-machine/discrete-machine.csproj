@@ -42,6 +42,7 @@
     <Compile Include="Abstract\IConnector.cs" />
     <Compile Include="Abstract\IElement.cs" />
     <Compile Include="Abstract\IOperation.cs" />
+    <Compile Include="ConditionalOperator.cs" />
     <Compile Include="Connector.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Elements\Counter.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Elements\Register.cs" />
     <Compile Include="Elements\Summator.cs" />
     <Compile Include="Elements\Сonjunctor.cs" />
+    <Compile Include="GroupOperations.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="Operation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
