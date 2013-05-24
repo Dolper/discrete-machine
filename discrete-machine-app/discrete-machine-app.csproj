@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\MachineAdapter.cs" />
+    <Compile Include="Model\WireProxy.cs" />
     <Compile Include="Templates\ElementTemplate.xaml.cs">
       <DependentUpon>ElementTemplate.xaml</DependentUpon>
     </Compile>

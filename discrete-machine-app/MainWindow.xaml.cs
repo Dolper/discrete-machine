@@ -37,6 +37,16 @@ namespace discrete_machine_app
             {
                 AddElement(element);
             }
+
+            machine.Wires.CollectionChanged += collectionChanged;
+        }
+
+        private void collectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Console.WriteLine("ADDED");
+            var c = new Control();
+            //c.Template = 
+            //SchemeCanvas.Children.Add(c);
         }
 
         private ElementTemplate AddElement(ElementProxy el, int? top = null, int? left = null)

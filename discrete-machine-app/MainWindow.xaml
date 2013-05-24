@@ -3,6 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Templates="clr-namespace:discrete_machine_app.Templates" x:Class="discrete_machine_app.MainWindow"
         Title="MainWindow" Height="579.325" Width="1038.179">
+    <Window.Resources>
+        <ControlTemplate x:Key="Wire">
+            <Line X1="{Binding Path=In}"></Line>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

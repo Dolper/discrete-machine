@@ -10,12 +10,10 @@ namespace discrete_machine
         public Wire(IConnector connectorOut)
         {
             Out = connectorOut;
-            Console.WriteLine("Created");
         }
         public void ConnectTo(IConnector connectorIn)
         {
             In = connectorIn;
-            Console.WriteLine("connected! " + Name);
         }
 
         public Guid Id { get; set; }

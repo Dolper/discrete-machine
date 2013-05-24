@@ -41,6 +41,15 @@ namespace discrete_machine_app.Templates
         {
             Console.WriteLine(Model.Name);
         }
+        
+        public UIElement ConnectorUI(IConnector connector)
+        {
+            if (Model.Input.Contains(connector))
+                return InputPanel.ItemContainerGenerator.ContainerFromItem(connector) as UIElement;
+            if (Model.Output.Contains(connector))
+                return OutputPanel.ItemContainerGenerator.ContainerFromItem(connector) as UIElement;
+            return null;
+        }
 
         private void OutputPanel_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -49,11 +58,12 @@ namespace discrete_machine_app.Templates
 
             var dataSource = sender as ListBox;
             var connector = GetDataFromListBox(dataSource, e.GetPosition(dataSource)) as IConnector;
-            var wire = new Wire(connector);
+            var connectorUI = ConnectorUI(connector);
+            var wireProxy = new WireProxy(connectorUI, connector);
 
-            if (wire != null)
+            if (wireProxy != null)
             {
-                DragDrop.DoDragDrop(OutputPanel, wire, DragDropEffects.Move);
+                DragDrop.DoDragDrop(OutputPanel, wireProxy, DragDropEffects.Move);
             }
         }
 
@@ -64,13 +74,16 @@ namespace discrete_machine_app.Templates
 
             var dataSource = sender as ListBox;
             var connector = GetDataFromListBox(dataSource, e.GetPosition(dataSource)) as IConnector;
+            var connectorUI = ConnectorUI(connector);
 
-            var wire = e.Data.GetData(typeof(Wire)) as Wire;
+            var wire = e.Data.GetData(typeof(WireProxy)) as WireProxy;
             if (wire != null)
             {
-                wire.ConnectTo(connector);
+                wire.ConnectTo(connectorUI, connector);
             }
             // TODO: Register wire
+            var app = (App)Application.Current;
+            app.Machine.AddWire(wire);
         }
 
         #region GetDataFromListBox(ListBox,Point)
