@@ -1,6 +1,7 @@
 ﻿using discrete_machine.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -12,18 +13,48 @@ namespace discrete_machine_app.Model
         public ElementProxy(IElement host)
         {
             _host = host;
+            _host.PropertyChanged += OnHostPropertyChanged;
         }
 
         public IElement Element { get { return _host; } }
 
-        public int Top { get; set; }
-        public int Left { get; set; }
-        public string Template { get; set; }
+        private double top;
+        public double Top
+        {
+            get { return top; }
+            set
+            {
+                top = value;
+                OnPropertyChanged("Top");
+            }
+        }
+        private double left;
+        public double Left
+        {
+            get { return left; }
+            set
+            {
+                left = value;
+                OnPropertyChanged("Left");
+            }
+
+        }
+        private string template;
+        public string Template
+        {
+            get { return template; }
+            set
+            {
+                template = value;
+                OnPropertyChanged("Template");
+            }
+        }
 
         #region IElement implementation
         public Guid Id
         {
             get { return Element.Id; }
+            set { Element.Id = value; }
         }
 
         public string Name
@@ -47,12 +78,18 @@ namespace discrete_machine_app.Model
             get { return Element.Operations; }
         }
 
-        // TODO: make proxy properties changes noticable
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+
+        private void OnPropertyChanged(string propertyName)
         {
-            add { _host.PropertyChanged += value; }
-            remove { _host.PropertyChanged -= value; }
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+        private void OnHostPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, e);
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
     }
 }

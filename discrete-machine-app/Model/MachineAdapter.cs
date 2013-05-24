@@ -9,6 +9,11 @@ namespace discrete_machine_app.Model
     public class MachineAdapter
     {
         private readonly Machine _machine;
+        public MachineAdapter()
+        {
+            Elements = new List<ElementProxy>();
+            _machine = new Machine();
+        }
         public MachineAdapter(Machine machine)
         {
             Elements = new List<ElementProxy>();
