@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace discrete_machine.Abstract
 {
-    public interface IConnector
+    public interface IConnector : INotifyPropertyChanged
     {
         string Name { get; set; }
         int Value { get; set; }

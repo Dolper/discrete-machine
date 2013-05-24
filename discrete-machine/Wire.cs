@@ -43,7 +43,7 @@ namespace discrete_machine
             {
                 // TODO: Handle
                 if (In != null && Out != null)
-                    return string.Format("{0} -> {1}", In.Name, Out.Name);
+                    return string.Format("{0} -> {1}", Out.Name, In.Name);
 
                 return "???";
             }

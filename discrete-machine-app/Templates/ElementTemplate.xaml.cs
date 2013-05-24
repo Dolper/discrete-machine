@@ -30,20 +30,12 @@ namespace discrete_machine_app.Templates
         {
             InitializeComponent();
             Model = element;
-            Initialize();
+            DataContext = Model;
         }
 
-        public ElementTemplate()
-        {
-            InitializeComponent();
-            Model = new ElementProxy(new Summator("Test Element"));
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            this.DataContext = Model;
-        }
+        public ElementTemplate() :
+            this(new ElementProxy(new Summator("Test Element")))
+        { }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {

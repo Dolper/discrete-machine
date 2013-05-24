@@ -8,9 +8,9 @@ namespace discrete_machine.Elements
 {
     public class Summator : Element
     {
-        private readonly Connector _a = new ConnectorIn();
-        private readonly Connector _b = new ConnectorIn();
-        private readonly Connector _r = new ConnectorOut();
+        private readonly Connector _a;
+        private readonly Connector _b;
+        private readonly Connector _r;
         private readonly Connector _p = new ConnectorIntern();
 
         public Exception Sum()
@@ -24,6 +24,10 @@ namespace discrete_machine.Elements
 
         public Summator(string name) : base(name)
         {
+            _a = new ConnectorIn("_x1", this);
+            _b = new ConnectorIn("_x2", this);
+            _r = new ConnectorOut("_r", this);
+
             Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };
             Operations = new IOperation<Summator>[] { 
