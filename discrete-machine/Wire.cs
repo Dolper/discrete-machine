@@ -7,6 +7,17 @@ namespace discrete_machine
 {
     public class Wire: IOperation<Wire>, IElement
     {
+        public Wire(IConnector connectorOut)
+        {
+            Out = connectorOut;
+            Console.WriteLine("Created");
+        }
+        public void ConnectTo(IConnector connectorIn)
+        {
+            In = connectorIn;
+            Console.WriteLine("connected! " + Name);
+        }
+
         public Guid Id { get; set; }
 
         /// <summary>
@@ -50,16 +61,25 @@ namespace discrete_machine
             return null;
         }
 
+        /// <summary>
+        /// Not Implemented!
+        /// </summary>
         public IEnumerable<IConnector> Input
         {
             get { throw new NotImplementedException(); }
         }
 
+        /// <summary>
+        /// Not Implemented!
+        /// </summary>
         public IEnumerable<IConnector> Output
         {
             get { throw new NotImplementedException(); }
         }
 
+        /// <summary>
+        /// Not Implemented!
+        /// </summary>
         public IEnumerable<IOperation> Operations
         {
             get { throw new NotImplementedException(); }

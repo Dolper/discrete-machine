@@ -15,8 +15,8 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="130" VerticalAlignment="Top" Width="100" Margin="10,10,0,0">
             <Label HorizontalAlignment="Right" Content="{Binding Name}"/>
         </Border>
-        <ListView Name="InputPanel" ItemsSource="{Binding Input}" HorizontalAlignment="Left" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
-        <ListView Name="OutputPanel" ItemsSource="{Binding Output}" HorizontalAlignment="Right" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" />
+        <ListView Name="InputPanel" ItemsSource="{Binding Input}" HorizontalAlignment="Left" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" Drop="InputPanel_Drop" AllowDrop="True" />
+        <ListView Name="OutputPanel" ItemsSource="{Binding Output}" HorizontalAlignment="Right" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" PreviewMouseLeftButtonDown="OutputPanel_PreviewMouseLeftButtonDown" />
         <ListView Name="InternalsPanel" ItemsSource="{Binding Internals}" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemTemplate="{StaticResource ConnectorsPanel}" />
     </Grid>
 </UserControl>
