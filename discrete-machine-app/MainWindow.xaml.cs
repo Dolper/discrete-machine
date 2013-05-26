@@ -77,6 +77,7 @@ namespace discrete_machine_app
 
         private void Label_MouseDown(object sender, EventArgs e)
         {
+            if (!(sender is MenuItem)) return;
 
             var app = (App)Application.Current;
             ElementProxy ep = new ElementProxy(new Summator("Error"));
