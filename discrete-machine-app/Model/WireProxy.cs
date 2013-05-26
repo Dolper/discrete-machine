@@ -51,7 +51,7 @@ namespace discrete_machine_app.Model
             this.parentElement = parent;
 
             relativePosition = element.TransformToAncestor(parentElement).Transform(new Point(0, 0));
-            relativePosition = new Point(relativePosition.X + element.DesiredSize.Width / 2, relativePosition.Y + element.DesiredSize.Height / 2);
+            relativePosition = new Point(relativePosition.X + element.RenderSize.Width / 2, relativePosition.Y + element.RenderSize.Height / 2);
 
             DependencyPropertyDescriptor.FromProperty(Canvas.TopProperty, parent.GetType())
                 .AddValueChanged(parent, this.ProperyChanged);

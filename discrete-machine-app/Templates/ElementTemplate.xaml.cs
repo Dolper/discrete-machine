@@ -32,6 +32,31 @@ namespace discrete_machine_app.Templates
             InitializeComponent();
             Model = element;
             DataContext = Model;
+
+            if(element.Element is Summator)
+                MainElementTemplate = (ControlTemplate)FindResource("SummatorTemplate");
+            else if (element.Element is Register)
+                MainElementTemplate = (ControlTemplate)FindResource("RegisterTemplate");
+            else
+                MainElementTemplate = (ControlTemplate)FindResource("DefaultTemplate");
+
+            Binding templateBinding = new Binding();
+            templateBinding.Source = this.MainElementTemplate;
+            MainElement.SetBinding(Control.TemplateProperty, templateBinding);
+        }
+
+        public static readonly DependencyProperty MainElementTemplateProperty =
+            DependencyProperty.Register("MainElementTemplate", typeof(ControlTemplate), typeof(ElementTemplate));
+        public ControlTemplate MainElementTemplate
+        {
+            get
+            {
+                return this.GetValue(MainElementTemplateProperty) as ControlTemplate;
+            }
+            set
+            {
+                this.SetValue(MainElementTemplateProperty, value);
+            }
         }
 
         public ElementTemplate() :

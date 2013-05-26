@@ -4,21 +4,60 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:l="clr-namespace:discrete_machine_app"
-             mc:Ignorable="d" Height="119" Width="120"
+             mc:Ignorable="d"
              Canvas.Left="{Binding Position.X}" Canvas.Top="{Binding Position.Y}"
              DataContext="Model"
              Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
-        <l:PointToMarginConverter x:Key="maringPositionConverter" />
         <DataTemplate x:Key="ConnectorsPanel">
             <RadioButton />
         </DataTemplate>
+        <l:IntToBitConverter x:Key="intToBitConverter"/>
+        <ControlTemplate x:Key="DefaultTemplate" TargetType="{x:Type Control}">
+            <Border BorderBrush="Black" BorderThickness="1"
+                    Height="95" Width="95"
+                    Margin="10">
+                <Label HorizontalAlignment="Right" Content="{Binding Name}"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SummatorTemplate" TargetType="{x:Type Control}">
+            <Border BorderBrush="Black" BorderThickness="1"
+                    Height="95" Width="95" 
+                    Margin="10">
+                <Grid>
+                    <Label Content="{Binding Name}" HorizontalAlignment="Right"/>
+                    <Label Content="{Binding Element.P.Value}" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="RegisterTemplate" TargetType="{x:Type Control}">
+            <StackPanel Orientation="Horizontal" Margin="30,10,30,10">
+                <Border BorderBrush="Black" BorderThickness="1" 
+                        Height="20" Width="20">
+                    <Label Padding="6, 1, 0, 0"
+                           Content="{Binding Element.P.Value, Converter={StaticResource intToBitConverter}, ConverterParameter=1}" />
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" 
+                        Height="20" Width="20">
+                    <Label Padding="6, 1, 0, 0"
+                           Content="{Binding Element.P.Value, Converter={StaticResource intToBitConverter}, ConverterParameter=2}" />
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" 
+                        Height="20" Width="20">
+                    <Label Padding="6, 1, 0, 0"
+                           Content="{Binding Element.P.Value, Converter={StaticResource intToBitConverter}, ConverterParameter=4}" />
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" 
+                        Height="20" Width="20">
+                    <Label Padding="6, 1, 0, 0"
+                           Content="{Binding Element.P.Value, Converter={StaticResource intToBitConverter}, ConverterParameter=8}" />
+                </Border>
+            </StackPanel>
+        </ControlTemplate>
     </UserControl.Resources>
-    <Grid Height="110" Width="110">
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="95" Margin="10,10,0,0">
-            <Label HorizontalAlignment="Right" Content="{Binding Name}"/>
-        </Border>
+    <Grid>
+        <Control x:Name="MainElement"></Control>
         <ListView Name="InputPanel" ItemsSource="{Binding Input}" HorizontalAlignment="Left" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" Drop="InputPanel_Drop" AllowDrop="True" />
         <ListView Name="OutputPanel" ItemsSource="{Binding Output}" HorizontalAlignment="Right" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" PreviewMouseLeftButtonDown="OutputPanel_PreviewMouseLeftButtonDown" />
         <ListView Name="InternalsPanel" ItemsSource="{Binding Internals}" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemTemplate="{StaticResource ConnectorsPanel}" />

@@ -96,6 +96,9 @@ namespace discrete_machine_app
                 case "Дизъюнктор":
                     ep = new ElementProxy(new Disjunctor("Дизъюнктор |"));
                     break;
+                case "Регистр":
+                    ep = new ElementProxy(new Register());
+                    break;
             }
             
             app.Machine.AddElement(ep);
@@ -126,18 +129,18 @@ namespace discrete_machine_app
                 Point canvPosToWindow = SchemeCanvas.TransformToAncestor(this).Transform(new Point(0, 0));
 
                 var r = sender as ElementTemplate;
-                var upperlimit = canvPosToWindow.Y + (r.Height / 2);
-                var lowerlimit = canvPosToWindow.Y + SchemeCanvas.ActualHeight - (r.Height / 2);
+                var upperlimit = canvPosToWindow.Y + (r.DesiredSize.Height / 2);
+                var lowerlimit = canvPosToWindow.Y + SchemeCanvas.ActualHeight - (r.DesiredSize.Height / 2);
 
-                var leftlimit = canvPosToWindow.X + (r.Width / 2);
-                var rightlimit = canvPosToWindow.X + SchemeCanvas.ActualWidth - (r.Width / 2);
+                var leftlimit = canvPosToWindow.X + (r.DesiredSize.Width / 2);
+                var rightlimit = canvPosToWindow.X + SchemeCanvas.ActualWidth - (r.DesiredSize.Width / 2);
 
 
                 var absmouseXpos = e.GetPosition(this).X;
                 var absmouseYpos = e.GetPosition(this).Y;
 
-                r.SetValue(Canvas.LeftProperty, e.GetPosition(SchemeCanvas).X - (r.Width / 2));
-                r.SetValue(Canvas.TopProperty, e.GetPosition(SchemeCanvas).Y - (r.Height / 2));
+                r.SetValue(Canvas.LeftProperty, e.GetPosition(SchemeCanvas).X - (r.DesiredSize.Width / 2));
+                r.SetValue(Canvas.TopProperty, e.GetPosition(SchemeCanvas).Y - (r.DesiredSize.Height / 2));
 
             }
         }
@@ -155,6 +158,11 @@ namespace discrete_machine_app
 
 
         private void MenuItem_Click(object sender, EventArgs e)
+        {
+            Label_MouseDown(sender, e);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Label_MouseDown(sender, e);
         }

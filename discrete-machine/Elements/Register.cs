@@ -20,6 +20,8 @@ namespace discrete_machine.Elements
             return null;
         }
 
+        public Connector P { get { return _p; } }
+
         public Exception Step()
         {
             if (_a.Value > 1) return new Exception("Входные данные в регистр не валидны");

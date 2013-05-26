@@ -13,6 +13,8 @@ namespace discrete_machine.Elements
         private readonly Connector _r;
         private readonly Connector _p = new ConnectorIntern();
 
+        public Connector P { get { return _p; } }
+
         public Exception Sum()
         {
             if (_a.Value > 1 || _b.Value > 1) return new Exception("Входные данные в сумматор не валидны");
