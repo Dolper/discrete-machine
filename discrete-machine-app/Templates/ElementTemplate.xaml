@@ -2,11 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:l="clr-namespace:discrete_machine_app"
              mc:Ignorable="d" Height="150" Width="120"
+             Canvas.Left="{Binding Position.X}" Canvas.Top="{Binding Position.Y}"
              DataContext="Model"
-             Canvas.Left="{Binding Left}" Canvas.Top="{Binding Top}" Loaded="UserControl_Loaded">
+             Loaded="UserControl_Loaded">
+
     <UserControl.Resources>
+        <l:PointToMarginConverter x:Key="maringPositionConverter" />
         <DataTemplate x:Key="ConnectorsPanel">
             <RadioButton />
         </DataTemplate>

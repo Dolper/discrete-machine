@@ -44,15 +44,25 @@ namespace discrete_machine_app
         private void collectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             Console.WriteLine("ADDED");
-            var c = new Control();
-            //c.Template = 
-            //SchemeCanvas.Children.Add(c);
+            foreach (var item in e.NewItems)
+            {
+                var wire = item as WireProxy;
+                if (wire == null) continue;
+
+                var c = new Control();
+                c.DataContext = wire;
+                c.Template = FindResource("WireTemplate") as ControlTemplate;
+                SchemeCanvas.Children.Add(c);
+            }
         }
 
         private ElementTemplate AddElement(ElementProxy el, int? top = null, int? left = null)
         {
-            if(top.HasValue) el.Top = top.Value;
-            if(left.HasValue) el.Left = left.Value;
+            var position = new Point();
+            if(top.HasValue) position.Y = top.Value;
+            if(left.HasValue) position.X = left.Value;
+
+            el.Position = position;
 
             var et = new ElementTemplate(el);
             et.MouseDown += Rectangle_MouseDown;
@@ -72,8 +82,8 @@ namespace discrete_machine_app
             app.Machine.AddElement(ep);
             var et = AddElement(ep);
             var point = e.GetPosition(SchemeCanvas);
-            ep.Left = point.X - et.Width / 2;
-            ep.Top = point.Y - et.Height / 2;
+            var position = new Point(point.X - et.Width / 2, point.Y - et.Height / 2);
+            ep.Position = position;
         }
         #endregion
 
@@ -109,6 +119,7 @@ namespace discrete_machine_app
 
                 r.SetValue(Canvas.LeftProperty, e.GetPosition(SchemeCanvas).X - (r.Width / 2));
                 r.SetValue(Canvas.TopProperty, e.GetPosition(SchemeCanvas).Y - (r.Height / 2));
+
             }
         }
 

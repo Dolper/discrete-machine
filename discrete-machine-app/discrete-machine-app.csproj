@@ -61,6 +61,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CanvasAutoSize.cs" />
+    <Compile Include="PointToMarginConverter.cs" />
     <Compile Include="Model\MachineAdapter.cs" />
     <Compile Include="Model\WireProxy.cs" />
     <Compile Include="Templates\ElementTemplate.xaml.cs">
@@ -81,6 +83,10 @@
     <Page Include="Templates\ElementTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

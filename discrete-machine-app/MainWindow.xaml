@@ -1,11 +1,15 @@
-﻿<Window
+﻿<Window xmlns:discrete_machine_app="clr-namespace:discrete_machine_app" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Templates="clr-namespace:discrete_machine_app.Templates" x:Class="discrete_machine_app.MainWindow"
         Title="MainWindow" Height="579.325" Width="1038.179">
     <Window.Resources>
-        <ControlTemplate x:Key="Wire">
-            <Line X1="{Binding Path=In}"></Line>
+        <ControlTemplate x:Key="WireTemplate">
+            <Line X1="{Binding In.X}" Y1="{Binding In.Y}" 
+                      X2="{Binding Out.X}" Y2="{Binding Out.Y}"
+                      Stroke="Red"
+                      StrokeThickness="1">
+            </Line>
         </ControlTemplate>
     </Window.Resources>
     <Grid>
@@ -18,8 +22,9 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Canvas x:Name="SchemeCanvas" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="488" Width="515">
-            </Canvas>
+            <ScrollViewer>
+                <discrete_machine_app:CanvasAutoSize x:Name="SchemeCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="0" Height="0" />
+            </ScrollViewer>
             <Canvas x:Name="CyclogramCanvas" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         </Grid>

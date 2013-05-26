@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace discrete_machine_app.Model
 {
@@ -18,27 +19,17 @@ namespace discrete_machine_app.Model
 
         public IElement Element { get { return _host; } }
 
-        private double top;
-        public double Top
+        private Point position;
+        public Point Position
         {
-            get { return top; }
+            get { return position; }
             set
             {
-                top = value;
-                OnPropertyChanged("Top");
+                position = value;
+                OnPropertyChanged("Position");
             }
         }
-        private double left;
-        public double Left
-        {
-            get { return left; }
-            set
-            {
-                left = value;
-                OnPropertyChanged("Left");
-            }
 
-        }
         private string template;
         public string Template
         {

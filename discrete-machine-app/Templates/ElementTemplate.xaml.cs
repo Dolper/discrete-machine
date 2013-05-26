@@ -4,6 +4,7 @@ using discrete_machine.Elements;
 using discrete_machine_app.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -42,12 +43,22 @@ namespace discrete_machine_app.Templates
             Console.WriteLine(Model.Name);
         }
         
-        public UIElement ConnectorUI(IConnector connector)
+        public UIElementCoords ConnectorCoords(IConnector connector)
         {
             if (Model.Input.Contains(connector))
-                return InputPanel.ItemContainerGenerator.ContainerFromItem(connector) as UIElement;
+            {
+                var itemUI = InputPanel.ItemContainerGenerator.ContainerFromItem(connector) as UIElement;
+                var result = new UIElementCoords(itemUI, this);
+
+                return result;
+            }
             if (Model.Output.Contains(connector))
-                return OutputPanel.ItemContainerGenerator.ContainerFromItem(connector) as UIElement;
+            {
+                var itemUI = OutputPanel.ItemContainerGenerator.ContainerFromItem(connector) as UIElement;
+                var result = new UIElementCoords(itemUI, this);
+
+                return result;
+            }
             return null;
         }
 
@@ -58,7 +69,7 @@ namespace discrete_machine_app.Templates
 
             var dataSource = sender as ListBox;
             var connector = GetDataFromListBox(dataSource, e.GetPosition(dataSource)) as IConnector;
-            var connectorUI = ConnectorUI(connector);
+            var connectorUI = ConnectorCoords(connector);
             var wireProxy = new WireProxy(connectorUI, connector);
 
             if (wireProxy != null)
@@ -74,7 +85,7 @@ namespace discrete_machine_app.Templates
 
             var dataSource = sender as ListBox;
             var connector = GetDataFromListBox(dataSource, e.GetPosition(dataSource)) as IConnector;
-            var connectorUI = ConnectorUI(connector);
+            var connectorUI = ConnectorCoords(connector);
 
             var wire = e.Data.GetData(typeof(WireProxy)) as WireProxy;
             if (wire != null)
