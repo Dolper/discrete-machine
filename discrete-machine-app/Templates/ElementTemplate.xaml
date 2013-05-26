@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:l="clr-namespace:discrete_machine_app"
-             mc:Ignorable="d" Height="150" Width="120"
+             mc:Ignorable="d" Height="119" Width="120"
              Canvas.Left="{Binding Position.X}" Canvas.Top="{Binding Position.Y}"
              DataContext="Model"
              Loaded="UserControl_Loaded">
@@ -15,8 +15,8 @@
             <RadioButton />
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="130" VerticalAlignment="Top" Width="100" Margin="10,10,0,0">
+    <Grid Height="110" Width="110">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="95" Margin="10,10,0,0">
             <Label HorizontalAlignment="Right" Content="{Binding Name}"/>
         </Border>
         <ListView Name="InputPanel" ItemsSource="{Binding Input}" HorizontalAlignment="Left" VerticalAlignment="Center" ItemTemplate="{StaticResource ConnectorsPanel}" Drop="InputPanel_Drop" AllowDrop="True" />

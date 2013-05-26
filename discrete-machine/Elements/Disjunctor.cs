@@ -19,9 +19,9 @@ namespace discrete_machine.Elements
             return null;
         }
 
-        public Disjunctor()
+        public Disjunctor(String name) : base(name)
         {
-            Input = new IConnector[] { _a };
+            Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };
             Operations = new IOperation<Disjunctor>[] { 
                 new Operation<Disjunctor>(this) { 

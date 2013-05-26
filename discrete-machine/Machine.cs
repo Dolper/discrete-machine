@@ -13,7 +13,7 @@ namespace discrete_machine
         {
             Cyclogram = new Сyclogram()
             {
-                Operations = new IOperation[0][],
+                //Operations = new IOperation[0][],
             };
             Elements = new IElement[0];
             Wires = new Wire[0];

@@ -19,9 +19,9 @@ namespace discrete_machine.Elements
             return null;
         }
 
-        public Сonjunctor()
+        public Сonjunctor(String name):base(name)
         {
-            Input = new IConnector[] { _a };
+            Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };
             Operations = new IOperation<Сonjunctor>[] { 
                 new Operation<Сonjunctor>(this) { 

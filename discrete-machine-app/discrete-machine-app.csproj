@@ -120,7 +120,66 @@
       <Name>discrete-machine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\в.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_156_show_thumbnails.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_099_vector_path_all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_245_chat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_352_nameplate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_358_file_import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_359_file_export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_007_summator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_007_invertor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_007_conjuctor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_007_disjuctor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_173_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_175_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_177_fast_forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_216_circle_arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_217_circle_arrow_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_082_roundabout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_024_parents.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_139_adjust_alt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cyclegram.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

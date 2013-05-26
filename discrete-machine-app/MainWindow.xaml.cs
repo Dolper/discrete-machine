@@ -31,7 +31,7 @@ namespace discrete_machine_app
 
             var machine = app.Machine = new MachineAdapter();
 
-            machine.AddElement(new ElementProxy(new Summator("Summator1")));
+            //machine.AddElement(new ElementProxy(new Summator("Summator1")));
 
             foreach (var element in machine.Elements)
             {
@@ -75,14 +75,32 @@ namespace discrete_machine_app
 
         #region ElementCreation
 
-        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Label_MouseDown(object sender, EventArgs e)
         {
+
             var app = (App)Application.Current;
-            var ep = new ElementProxy(new Summator("SummatorN"));
+            ElementProxy ep = new ElementProxy(new Summator("Error"));
+
+            switch((sender as MenuItem).Header.ToString())
+            {
+                case "Сумматор":
+                    ep = new ElementProxy(new Summator("Сумматор ∑"));
+                    break;
+                case "Инвертор":
+                    ep = new ElementProxy(new Inverter("Инвертор ⌐"));
+                    break;
+                case "Конъюнктор":
+                    ep = new ElementProxy(new Сonjunctor("Конъюнктор &"));
+                    break;
+                case "Дизъюнктор":
+                    ep = new ElementProxy(new Disjunctor("Дизъюнктор |"));
+                    break;
+            }
+            
             app.Machine.AddElement(ep);
             var et = AddElement(ep);
-            var point = e.GetPosition(SchemeCanvas);
-            var position = new Point(point.X - et.Width / 2, point.Y - et.Height / 2);
+           // var point = e.GetPosition(SchemeCanvas);
+            var position = new Point(250, 350);
             ep.Position = position;
         }
         #endregion
@@ -133,5 +151,11 @@ namespace discrete_machine_app
             }
         }
         #endregion
+
+
+        private void MenuItem_Click(object sender, EventArgs e)
+        {
+            Label_MouseDown(sender, e);
+        }
     }
 }

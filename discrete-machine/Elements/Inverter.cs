@@ -18,7 +18,7 @@ namespace discrete_machine.Elements
             return null;
         }
 
-        public Inverter()
+        public Inverter(String name):base(name)
         {
             Input = new IConnector[] { _a };
             Output = new IConnector[] { _r };
