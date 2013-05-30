@@ -8,11 +8,11 @@ namespace discrete_machine
     public class ConditionalOperator
     {
         private readonly Connector connector;
-        private readonly char @operator;
+        private readonly string @operator;
         private readonly int operand;
         public readonly int transition;
 
-        public ConditionalOperator(Connector connector, char @operator, int operand, int transition)
+        public ConditionalOperator(Connector connector, string @operator, int operand, int transition)
         {
             this.connector = connector;
             this.@operator = @operator;
@@ -24,12 +24,28 @@ namespace discrete_machine
         {
             switch (@operator)
             {
-                case '<':
+                case "<":
                     if (connector.Value < operand)
                         return true;
                     break;
-                case '>':
+                case ">":
                     if (connector.Value > operand)
+                        return true;
+                    break;
+                case "=":
+                    if (connector.Value == operand)
+                        return true;
+                    break;
+                case "<>":
+                    if (connector.Value != operand)
+                        return true;
+                    break;
+                case "<=":
+                    if (connector.Value <= operand)
+                        return true;
+                    break;
+                case ">=":
+                    if (connector.Value >= operand)
                         return true;
                     break;
             }

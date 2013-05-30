@@ -10,11 +10,9 @@ namespace discrete_machine
     public class Сyclogram
     {
         private int currentStep = 0;
-        private GroupOperations[] groupOperations {get; set;}
 
         public void NextStep()
         {
-         
             currentStep++;
         }
     }
