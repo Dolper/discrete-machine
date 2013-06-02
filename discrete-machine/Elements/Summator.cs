@@ -32,11 +32,12 @@ namespace discrete_machine.Elements
 
             Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };
-            Operations = new IOperation<Summator>[] { 
-                new Operation<Summator>(this) { 
+            Operations = new Operation<Summator>[] { 
+                new Operation<Summator>(this) {
+                    Name = "Запуск",
                     Exec = x => x.Sum() 
-                }, 
-            }.Select(x => x as IOperation);
+                },
+            };
         }
     }
 }

@@ -23,11 +23,12 @@ namespace discrete_machine.Elements
         {
             Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };
-            Operations = new IOperation<Disjunctor>[] { 
-                new Operation<Disjunctor>(this) { 
-                    Exec = x => x.Disjunct() 
-                }, 
-            }.Select(x => x as IOperation);
+            Operations = new IOperation<Disjunctor>[] {
+                new Operation<Disjunctor>(this) {
+                    Name = "Запуск",
+                    Exec = x => x.Disjunct()
+                },
+            };
         }
     }
 }

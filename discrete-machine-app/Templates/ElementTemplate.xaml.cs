@@ -43,6 +43,15 @@ namespace discrete_machine_app.Templates
             Binding templateBinding = new Binding();
             templateBinding.Source = this.MainElementTemplate;
             MainElement.SetBinding(Control.TemplateProperty, templateBinding);
+
+            reinitMenu();
+        }
+
+        private void reinitMenu()
+        {
+            MainElement.ContextMenu = new ContextMenu();
+            foreach (var item in Model.Operations.Select(x => new MenuItem { Header = x.Name }))
+                MainElement.ContextMenu.Items.Add(item);
         }
 
         public static readonly DependencyProperty MainElementTemplateProperty =

@@ -85,5 +85,10 @@ namespace discrete_machine
 
         // TODO: implement
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public string FullName
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

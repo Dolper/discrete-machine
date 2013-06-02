@@ -47,14 +47,16 @@ namespace discrete_machine.Elements
         {
             Input = new IConnector[] { _a };
             Output = new IConnector[] { _r };
-            Operations = new IOperation<Register>[] { 
-                new Operation<Register>(this) { 
-                    Exec = x => x.Step() 
-                }, 
-                new Operation<Register>(this) { 
-                    Exec = x => x.CyclicStep() 
-                }, 
-            }.Select(x => x as IOperation).ToList();
+            Operations = new IOperation<Register>[] {
+                new Operation<Register>(this) {
+                    Name = "Сдвиг",
+                    Exec = x => x.Step(),
+                },
+                new Operation<Register>(this) {
+                    Name = "Циклический сдвиг",
+                    Exec = x => x.CyclicStep(),
+                },
+            };
         }
     }
 }

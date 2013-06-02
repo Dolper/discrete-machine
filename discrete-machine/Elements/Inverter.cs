@@ -22,11 +22,12 @@ namespace discrete_machine.Elements
         {
             Input = new IConnector[] { _a };
             Output = new IConnector[] { _r };
-            Operations = new IOperation<Inverter>[] { 
-                new Operation<Inverter>(this) { 
-                    Exec = x => x.Invert() 
-                }, 
-            }.Select(x => x as IOperation).ToList();
+            Operations = new IOperation<Inverter>[] {
+                new Operation<Inverter>(this) {
+                    Name = "Запуск",
+                    Exec = x => x.Invert()
+                },
+            };
         }
     }
 }

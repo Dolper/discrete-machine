@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace discrete_machine.Abstract
 {
-    public interface IOperation<out T>
+    public interface IOperation
     {
-        T Reciever { get; }
+        string FullName { get; }
         string Name { get; set; }
         Exception Execute();
     }
 
-    public interface IOperation : IOperation<IElement> { }
+    public interface IOperation<out T> : IOperation
+    {
+        T Reciever { get; }
+    }
 }

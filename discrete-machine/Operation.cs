@@ -16,7 +16,8 @@ namespace discrete_machine
             _reciever = reciever;
         }
 
-        public string Name { get { return _reciever.Name; } set { throw new NotImplementedException(); } }
+        public string Name { get; set; }
+        public string FullName { get { return _reciever.Name + Name; } }
         public T Reciever { get { return _reciever; } }
 
         public Func<T, Exception> Exec { get; set; }
@@ -25,10 +26,10 @@ namespace discrete_machine
         {
             return Exec(Reciever);
         }
-    }
 
-    public class Operation : Operation<IElement>
-    {
-        public Operation(IElement reciever) : base(reciever) { }
+        public IOperation asIOperation()
+        {
+            return null;
+        }
     }
 }

@@ -2,15 +2,33 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Templates="clr-namespace:discrete_machine_app.Templates" x:Class="discrete_machine_app.MainWindow"
-        Title="MainWindow" Height="579.325" Width="1038.179">
+        Title="Discrete Machine" Height="579.325" Width="1038.179">
     
     <Window.Resources>
         <ControlTemplate x:Key="WireTemplate">
-            <Line X1="{Binding In.X}" Y1="{Binding In.Y}" 
-                  X2="{Binding Out.X}" Y2="{Binding Out.Y}"
-                  Stroke="Red"
-                  StrokeThickness="1">
-            </Line>
+            <Canvas>
+                <Ellipse Height="10" Width="10" Fill="Red"
+                         StrokeThickness="1" Stroke="Black"
+                         Canvas.Left="{Binding In.X}" Canvas.Top="{Binding In.Y}" >
+                    <Ellipse.RenderTransform>
+                        <TranslateTransform X="-5" Y="-5" />
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+
+                <Ellipse Height="10" Width="10" Fill="Red"
+                         StrokeThickness="1" Stroke="Black"
+                         Canvas.Left="{Binding Out.X}" Canvas.Top="{Binding Out.Y}" >
+                    <Ellipse.RenderTransform>
+                        <TranslateTransform X="-5" Y="-5" />
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+
+                <Line X1="{Binding In.X}" Y1="{Binding In.Y}" 
+                      X2="{Binding Out.X}" Y2="{Binding Out.Y}"
+                      Stroke="Red"
+                      StrokeThickness="1">
+                </Line>
+            </Canvas>
         </ControlTemplate>
     </Window.Resources>
     

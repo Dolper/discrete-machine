@@ -26,14 +26,16 @@ namespace discrete_machine.Elements
         {
             Input = new IConnector[] { };
             Output = new IConnector[] { };
-            Operations = new IOperation<Counter>[] { 
-                new Operation<Counter>(this) { 
-                    Exec = x => x.Increment() 
-                }, 
-                new Operation<Counter>(this) { 
-                    Exec = x => x.Reset() 
-                }, 
-            }.Select(x => x as IOperation);
+            Operations = new IOperation<Counter>[] {
+                new Operation<Counter>(this) {
+                    Name = "+1",
+                    Exec = x => x.Increment(),
+                },
+                new Operation<Counter>(this) {
+                    Name = "Сброс",
+                    Exec = x => x.Reset()
+                },
+            };
         }
     }
 }
