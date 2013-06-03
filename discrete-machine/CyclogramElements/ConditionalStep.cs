@@ -3,53 +3,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace discrete_machine
+namespace discrete_machine.CyclogramElements
 {
-    public class ConditionalOperator
+    public enum StepCondition
     {
-        private readonly Connector connector;
-        private readonly string @operator;
-        private readonly int operand;
-        public readonly int transition;
+        More,
+        Less,
+        Equals,
+        NotEquals,
+        LessEquals,
+        MoreEquals
+    }
 
-        public ConditionalOperator(Connector connector, string @operator, int operand, int transition)
+    public class ConditionalStep : CyclogramStep
+    {
+        public static string[] ConditionsSymbols = 
+            { ">", "<", "=", "<>", "<=", "=>" };
+        public static string Symbol(StepCondition condition)
+        {
+            return ConditionsSymbols[(int)condition];
+        }
+
+
+        private readonly Connector connector;
+        private readonly StepCondition @operator;
+        private readonly int operand;
+        public CyclogramStep transition { get; set; }
+
+        public ConditionalStep(Connector connector, StepCondition @operator, int operand)
         {
             this.connector = connector;
             this.@operator = @operator;
             this.operand = operand;
-            this.transition = transition;
         }
 
         public bool Comparer()
         {
             switch (@operator)
             {
-                case "<":
+                case StepCondition.Less:
                     if (connector.Value < operand)
                         return true;
                     break;
-                case ">":
+                case StepCondition.More:
                     if (connector.Value > operand)
                         return true;
                     break;
-                case "=":
+                case StepCondition.Equals:
                     if (connector.Value == operand)
                         return true;
                     break;
-                case "<>":
+                case StepCondition.NotEquals:
                     if (connector.Value != operand)
                         return true;
                     break;
-                case "<=":
+                case StepCondition.LessEquals:
                     if (connector.Value <= operand)
                         return true;
                     break;
-                case ">=":
+                case StepCondition.MoreEquals:
                     if (connector.Value >= operand)
                         return true;
                     break;
             }
             return false;
+        }
+
+        public List<Exception> Execute()
+        {
+            return new List<Exception>();
         }
     }
 }
