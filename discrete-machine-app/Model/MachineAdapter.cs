@@ -26,15 +26,38 @@ namespace discrete_machine_app.Model
         internal void AddElement(ElementProxy elementProxy)
         {
             if (!_machine.Elements.Contains(elementProxy.Element))
-                _machine.AddElement(elementProxy.Element);
+                _machine.Elements.Add(elementProxy.Element);
             Elements.Add(elementProxy);
         }
 
         public ObservableCollection<WireProxy> Wires { get; set; }
         internal void AddWire(WireProxy wire)
         {
-            _machine.AddWire(wire.Wire);
+            _machine.Wires.Add(wire.Wire);
             Wires.Add(wire);
+        }
+        internal void RemoveWire(WireProxy wire)
+        {
+            Wires.Remove(wire);
+            _machine.Wires.Remove(wire.Wire);
+        }
+
+        internal void RemoveElement(ElementProxy elementProxy)
+        {
+            var element = elementProxy.Element;
+            var wiresToDelete = Wires.Where(x =>
+                    element.Input.Contains(x.Wire.In) ||
+                    element.Input.Contains(x.Wire.Out) ||
+                    element.Output.Contains(x.Wire.In) ||
+                    element.Output.Contains(x.Wire.Out)
+                ).ToList();
+
+            // TODO: replace with smth'n like removeAll
+            foreach (var wire in wiresToDelete)
+                RemoveWire(wire);
+
+            Elements.Remove(elementProxy);
+            _machine.Elements.Remove(element);
         }
     }
 }

@@ -40,20 +40,35 @@ namespace discrete_machine_app
 
             machine.Wires.CollectionChanged += collectionChanged;
         }
+        private List<Control> _wiresControls = new List<Control>();
 
         private void collectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            Console.WriteLine("ADDED");
-            foreach (var item in e.NewItems)
-            {
-                var wire = item as WireProxy;
-                if (wire == null) continue;
+            if(e.NewItems != null)
+                foreach (var item in e.NewItems)
+                {
+                    var wire = item as WireProxy;
+                    if (wire == null) continue;
 
-                var c = new Control();
-                c.DataContext = wire;
-                c.Template = FindResource("WireTemplate") as ControlTemplate;
-                SchemeCanvas.Children.Add(c);
-            }
+                    var c = new Control();
+                    c.DataContext = wire;
+                    c.Template = FindResource("WireTemplate") as ControlTemplate;
+                    _wiresControls.Add(c);
+                    SchemeCanvas.Children.Add(c);
+                }
+            if(e.OldItems != null)
+                foreach (var item in e.OldItems)
+                {
+                    var wire = item as WireProxy;
+                    if (wire == null) continue;
+
+                    var uiElement = _wiresControls.First(x => x.DataContext == wire);
+                    if (uiElement != null)
+                    {
+                        SchemeCanvas.Children.Remove(uiElement);
+                        _wiresControls.Remove(uiElement);
+                    }
+                }
         }
 
         private ElementTemplate AddElement(ElementProxy el, int? top = null, int? left = null)
@@ -70,6 +85,7 @@ namespace discrete_machine_app
             et.MouseUp += Rectangle_MouseUp;
             SchemeCanvas.Children.Add(et);
 
+            et.WantsToBeDeleted += DeleteElement;
             return et;
         }
 
@@ -166,5 +182,17 @@ namespace discrete_machine_app
         {
             Label_MouseDown(sender, e);
         }
+
+        public void DeleteElement(object sender, EventArgs e)
+        {
+            var et = sender as ElementTemplate;
+            if (et == null) return;
+            
+            var machine = ((App)Application.Current).Machine;
+            machine.RemoveElement(et.Model);
+
+            SchemeCanvas.Children.Remove(et);
+        }
+
     }
 }

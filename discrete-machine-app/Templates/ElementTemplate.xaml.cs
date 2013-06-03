@@ -2,6 +2,7 @@
 using discrete_machine.Abstract;
 using discrete_machine.Elements;
 using discrete_machine_app.Model;
+using discrete_machine_app.Stuff;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,13 +48,35 @@ namespace discrete_machine_app.Templates
             reinitMenu();
         }
 
-        private void reinitMenu()
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
         {
-            MainElement.ContextMenu = new ContextMenu();
-            foreach (var item in Model.Operations.Select(x => new MenuItem { Header = x.Name }))
-                MainElement.ContextMenu.Items.Add(item);
+            get
+            {
+                if (_deleteCommand == null)
+                {
+                    _deleteCommand = new RelayCommand(param => this.OnDelete());
+                }
+                return _deleteCommand;
+            }
         }
 
+        private void reinitMenu()
+        {
+            var menu = new ContextMenu();
+            menu.Items.Add(new MenuItem { Header = "Удалить", Command = DeleteCommand });
+            menu.Items.Add(new Separator());
+            foreach (var item in Model.Operations.Select(x => new MenuItem { Header = x.Name, IsEnabled = false }))
+                menu.Items.Add(item);
+
+            MainElement.ContextMenu = menu;
+        }
+        private void OnDelete()
+        {
+            if (WantsToBeDeleted != null)
+                WantsToBeDeleted(this, new EventArgs());
+        }
+         
         public static readonly DependencyProperty MainElementTemplateProperty =
             DependencyProperty.Register("MainElementTemplate", typeof(ControlTemplate), typeof(ElementTemplate));
         public ControlTemplate MainElementTemplate
@@ -162,5 +185,8 @@ namespace discrete_machine_app.Templates
             return null;
         }
         #endregion
+
+        public event EventHandler WantsToBeDeleted;
+
     }
 }

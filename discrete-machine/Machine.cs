@@ -15,22 +15,13 @@ namespace discrete_machine
             {
                 //Operations = new IOperation[0][],
             };
-            Elements = new IElement[0];
-            Wires = new Wire[0];
+            Elements = new List<IElement>();
+            Wires = new List<Wire>();
         }
 
-        public IElement[] Elements { get; set; }
-        public Wire[] Wires { get; set; }
+        public ICollection<IElement> Elements { get; set; }
+        public ICollection<Wire> Wires { get; set; }
 
         public Сyclogram Cyclogram { get; set; }
-
-        public void AddElement(IElement el)
-        {
-            Elements = Elements.Concat(new IElement[] { el }).ToArray();
-        }
-        public void AddWire(Wire wire)
-        {
-            Wires = Wires.Concat(new Wire[] { wire }).ToArray();
-        }
     }
 }
