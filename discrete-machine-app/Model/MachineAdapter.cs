@@ -1,7 +1,9 @@
 ﻿using discrete_machine;
+using discrete_machine.CyclogramElements;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -19,6 +21,11 @@ namespace discrete_machine_app.Model
 
             foreach (var el in _machine.Elements)
                 Elements.Add(new ElementProxy(el));
+            foreach (var el in _machine.Wires)
+                Wires.Add(new WireProxy(el));
+
+            Steps = new ObservableCollection<CyclogramStep>();
+            Steps.CollectionChanged += stepsCollectionChanged;
         }
 
         public List<ElementProxy> Elements { get; set; }
@@ -58,6 +65,32 @@ namespace discrete_machine_app.Model
 
             Elements.Remove(elementProxy);
             _machine.Elements.Remove(element);
+        }
+
+        internal ObservableCollection<CyclogramStep> Steps { get; set; }
+        internal int NextStep { get { return _machine.Cyclogram.NextStep; } }
+        internal void AddStep(CyclogramStep newStep)
+        {
+            Steps.Add(newStep);
+        }
+        internal void AddCondition()
+        {
+        }
+        private void stepsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+                _machine.Cyclogram.Steps.AddRange(e.NewItems);
+            if (e.OldItems != null)
+                foreach (var el in e.OldItems)
+                    _machine.Cyclogram.Steps.Remove(el);
+        }
+
+        public Cyclogram Cyclogram
+        {
+            get
+            {
+                return _machine.Cyclogram;
+            }
         }
     }
 }

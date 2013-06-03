@@ -63,9 +63,13 @@
     </ApplicationDefinition>
     <Compile Include="CanvasAutoSize.cs" />
     <Compile Include="IntToBitConverter.cs" />
+    <Compile Include="Model\BindableCyclogramElement.cs" />
+    <Compile Include="Model\ObservableValue.cs" />
     <Compile Include="PointToMarginConverter.cs" />
     <Compile Include="Model\MachineAdapter.cs" />
     <Compile Include="Model\WireProxy.cs" />
+    <Compile Include="Stuff\AddOperationEventArgs.cs" />
+    <Compile Include="Stuff\BoolToBoolConverter.cs" />
     <Compile Include="Stuff\RelayCommand.cs" />
     <Compile Include="Templates\ElementTemplate.xaml.cs">
       <DependentUpon>ElementTemplate.xaml</DependentUpon>

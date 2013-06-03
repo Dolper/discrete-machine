@@ -11,7 +11,7 @@ namespace discrete_machine
     {
         public Machine()
         {
-            Cyclogram = new Сyclogram()
+            Cyclogram = new Cyclogram()
             {
                 //Operations = new IOperation[0][],
             };
@@ -22,6 +22,6 @@ namespace discrete_machine
         public ICollection<IElement> Elements { get; set; }
         public ICollection<Wire> Wires { get; set; }
 
-        public Сyclogram Cyclogram { get; set; }
+        public Cyclogram Cyclogram { get; set; }
     }
 }

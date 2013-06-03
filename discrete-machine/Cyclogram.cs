@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace discrete_machine
 {
-    public class Сyclogram
+    public class Cyclogram
     {
         public ArrayList Steps { get; set; }
         public int NextStep { get; set; }
 
-        public Сyclogram()
+        public Cyclogram()
         {
             Steps = new ArrayList();
             NextStep = 0;
@@ -39,14 +39,6 @@ namespace discrete_machine
             NextStep++;
         }
 
-        public void AddStep(CyclogramStep newStep)
-        {
-            Steps.Add(newStep);
-        }
-        public void RemoveStep(CyclogramStep step)
-        {
-            Steps.Remove(step);
-        }
         public void ReorderSteps(int oldStepNum, int newStepNum)
         {
             var elem = Steps[oldStepNum];

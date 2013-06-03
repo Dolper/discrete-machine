@@ -66,11 +66,24 @@ namespace discrete_machine_app.Templates
             var menu = new ContextMenu();
             menu.Items.Add(new MenuItem { Header = "Удалить", Command = DeleteCommand });
             menu.Items.Add(new Separator());
-            foreach (var item in Model.Operations.Select(x => new MenuItem { Header = x.Name, IsEnabled = false }))
+            foreach (var operation in Model.Operations)
+            {
+                var item = new MenuItem { Header = operation.Name };
+                item.Click += (sender, args) => this.OnNewOperation(operation);
                 menu.Items.Add(item);
-
+            }
             MainElement.ContextMenu = menu;
         }
+        private void OnNewOperation(IOperation operation)
+        {
+            if (AddOperation != null)
+            {
+                var args = new AddOperationEventArgs(operation);
+                AddOperation(this, args);
+            }
+        }
+        public event EventHandler<AddOperationEventArgs> AddOperation;
+
         private void OnDelete()
         {
             if (WantsToBeDeleted != null)

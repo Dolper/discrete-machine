@@ -1,10 +1,14 @@
 ﻿using discrete_machine;
 using discrete_machine.Abstract;
+using discrete_machine.CyclogramElements;
 using discrete_machine.Elements;
 using discrete_machine_app.Model;
+using discrete_machine_app.Stuff;
 using discrete_machine_app.Templates;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -28,21 +32,64 @@ namespace discrete_machine_app
         {
             var app = (App)Application.Current;
             InitializeComponent();
-
+            DataContext = this;
             var machine = app.Machine = new MachineAdapter();
 
-            //machine.AddElement(new ElementProxy(new Summator("Summator1")));
+            machine.Wires.CollectionChanged += wiresCollectionChanged;
+            machine.Steps.CollectionChanged += stepsCollectionChanged;
 
-            foreach (var element in machine.Elements)
+            CyclogramGrid.Columns.Add(new DataGridTextColumn()
             {
-                AddElement(element);
-            }
-
-            machine.Wires.CollectionChanged += collectionChanged;
+                Header = "",
+                Binding = new Binding("Name")
+                {
+                    Mode = BindingMode.OneWay
+                },
+            });
+            CyclogramGrid.ItemsSource = cyclItems;
         }
-        private List<Control> _wiresControls = new List<Control>();
+        private ObservableCollection<BindableCyclogramElement> cyclItems = new ObservableCollection<BindableCyclogramElement>();
 
-        private void collectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private ICommand AddColumnCommand
+        {
+            get {
+                if (_addColumnCommand == null)
+                    _addColumnCommand = new RelayCommand(x => this.AddColumn());
+                return _addColumnCommand;
+            }
+        }
+        private ICommand _addColumnCommand;
+        private void AddColumn()
+        {
+            var machine = ((App)Application.Current).Machine;
+            var newStep = new OperationsStep();
+            machine.AddStep(newStep);
+        }
+        private void stepsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var newCol = new DataGridCheckBoxColumn()
+            {
+                Header = e.NewStartingIndex,
+            };
+            var binding = new Binding("[" + e.NewStartingIndex + "].Value")
+            {
+                Mode = BindingMode.TwoWay,
+                Converter = new BoolToBoolConverter(),
+            };
+            newCol.Binding = binding;
+            CyclogramGrid.Columns.Add(newCol);
+        }
+        public void AddNewOperation(object sender, AddOperationEventArgs e)
+        {
+            var machine = ((App)Application.Current).Machine;
+            var elem = new BindableCyclogramElement(machine.Cyclogram, e.Operation);
+            cyclItems.Add(elem);
+            //CyclogramGrid.Items.Add(elem);
+        }
+
+        #region Wires
+        private List<Control> _wiresControls = new List<Control>();
+        private void wiresCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if(e.NewItems != null)
                 foreach (var item in e.NewItems)
@@ -70,12 +117,13 @@ namespace discrete_machine_app
                     }
                 }
         }
+        #endregion Wires
 
-        private ElementTemplate AddElement(ElementProxy el, int? top = null, int? left = null)
+
+        #region ElementCreation
+        private ElementTemplate AddElement(ElementProxy el)
         {
             var position = new Point();
-            if(top.HasValue) position.Y = top.Value;
-            if(left.HasValue) position.X = left.Value;
 
             el.Position = position;
 
@@ -86,10 +134,9 @@ namespace discrete_machine_app
             SchemeCanvas.Children.Add(et);
 
             et.WantsToBeDeleted += DeleteElement;
+            et.AddOperation += AddNewOperation;
             return et;
         }
-
-        #region ElementCreation
 
         private void Label_MouseDown(object sender, EventArgs e)
         {
@@ -192,6 +239,11 @@ namespace discrete_machine_app
             machine.RemoveElement(et.Model);
 
             SchemeCanvas.Children.Remove(et);
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.AddColumn();
         }
 
     }

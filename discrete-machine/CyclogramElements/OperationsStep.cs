@@ -1,12 +1,20 @@
 ﻿using discrete_machine.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace discrete_machine.CyclogramElements
 {
-    class OperationsStep: CyclogramStep
+    public class OperationsStep: CyclogramStep
     {
-        private List<IOperation> stepOperations = new List<IOperation>();
+        private ObservableCollection<IOperation> stepOperations = new ObservableCollection<IOperation>();
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged
+        {
+            add { stepOperations.CollectionChanged += value; }
+            remove { stepOperations.CollectionChanged -= value; }
+        }
 
         public List<Exception> Execute()
         {
