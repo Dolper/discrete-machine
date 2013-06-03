@@ -52,16 +52,27 @@ namespace discrete_machine_app.Model
         internal void RemoveElement(ElementProxy elementProxy)
         {
             var element = elementProxy.Element;
+            var connectors = element.Input.Concat(element.Output);
             var wiresToDelete = Wires.Where(x =>
-                    element.Input.Contains(x.Wire.In) ||
-                    element.Input.Contains(x.Wire.Out) ||
-                    element.Output.Contains(x.Wire.In) ||
-                    element.Output.Contains(x.Wire.Out)
+                    connectors.Contains(x.Wire.In) ||
+                    connectors.Contains(x.Wire.Out)
                 ).ToList();
 
             // TODO: replace with smth'n like removeAll
             foreach (var wire in wiresToDelete)
                 RemoveWire(wire);
+
+            foreach (var item in _machine.Cyclogram.Steps)
+            {
+                if (item is OperationsStep)
+                    foreach (var operation in element.Operations)
+                        (item as OperationsStep).RemoveOperation(operation);
+                var conditionsToDelete = new List<ConditionalStep>();
+                if (item is ConditionalStep)
+                    foreach (var connector in connectors)
+                        if (connectors.Contains((item as ConditionalStep).Connector))
+                            conditionsToDelete.Add(item as ConditionalStep);
+            }
 
             Elements.Remove(elementProxy);
             _machine.Elements.Remove(element);

@@ -62,22 +62,24 @@ namespace discrete_machine_app
         private void AddColumn()
         {
             var machine = ((App)Application.Current).Machine;
-            var newStep = new OperationsStep();
-            machine.AddStep(newStep);
+            machine.AddStep(new OperationsStep());
         }
         private void stepsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            var newCol = new DataGridCheckBoxColumn()
+            for (int i = 0; i < e.NewItems.Count; i++)
             {
-                Header = e.NewStartingIndex,
-            };
-            var binding = new Binding("[" + e.NewStartingIndex + "].Value")
-            {
-                Mode = BindingMode.TwoWay,
-                Converter = new BoolToBoolConverter(),
-            };
-            newCol.Binding = binding;
-            CyclogramGrid.Columns.Add(newCol);
+                var index = e.NewStartingIndex + i;
+                var newCol = new DataGridCheckBoxColumn()
+                {
+                    Header = index,
+                    Binding = new Binding("[" + index + "].Value")
+                    {
+                        Mode = BindingMode.TwoWay,
+                        Converter = new BoolToBoolConverter(),
+                    }
+                };
+                CyclogramGrid.Columns.Add(newCol);
+            }
         }
         public void AddNewOperation(object sender, AddOperationEventArgs e)
         {
@@ -238,6 +240,10 @@ namespace discrete_machine_app
             var machine = ((App)Application.Current).Machine;
             machine.RemoveElement(et.Model);
 
+            var cyclogramRowsToDelete = cyclItems.Where(x => et.Model.Operations.Contains(x.Operation)).ToList();
+            foreach (var row in cyclogramRowsToDelete)
+                cyclItems.Remove(row);
+
             SchemeCanvas.Children.Remove(et);
         }
 
@@ -245,6 +251,5 @@ namespace discrete_machine_app
         {
             this.AddColumn();
         }
-
     }
 }

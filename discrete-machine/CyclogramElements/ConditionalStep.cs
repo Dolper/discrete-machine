@@ -25,14 +25,14 @@ namespace discrete_machine.CyclogramElements
         }
 
 
-        private readonly Connector connector;
         private readonly StepCondition @operator;
         private readonly int operand;
         public CyclogramStep transition { get; set; }
+        public Connector Connector { get; set; }
 
         public ConditionalStep(Connector connector, StepCondition @operator, int operand)
         {
-            this.connector = connector;
+            this.Connector = connector;
             this.@operator = @operator;
             this.operand = operand;
         }
@@ -42,27 +42,27 @@ namespace discrete_machine.CyclogramElements
             switch (@operator)
             {
                 case StepCondition.Less:
-                    if (connector.Value < operand)
+                    if (Connector.Value < operand)
                         return true;
                     break;
                 case StepCondition.More:
-                    if (connector.Value > operand)
+                    if (Connector.Value > operand)
                         return true;
                     break;
                 case StepCondition.Equals:
-                    if (connector.Value == operand)
+                    if (Connector.Value == operand)
                         return true;
                     break;
                 case StepCondition.NotEquals:
-                    if (connector.Value != operand)
+                    if (Connector.Value != operand)
                         return true;
                     break;
                 case StepCondition.LessEquals:
-                    if (connector.Value <= operand)
+                    if (Connector.Value <= operand)
                         return true;
                     break;
                 case StepCondition.MoreEquals:
-                    if (connector.Value >= operand)
+                    if (Connector.Value >= operand)
                         return true;
                     break;
             }

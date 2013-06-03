@@ -8,14 +8,15 @@ namespace discrete_machine_app.Model
     class BindableCyclogramElement
     {
         private readonly Cyclogram _cyclogram;
-        private readonly IOperation _operation;
         private readonly List<ObservableValue> _values;
+
+        public IOperation Operation { get; set; }
 
         public BindableCyclogramElement(Cyclogram cyclogram, IOperation operation)
         {
             _cyclogram = cyclogram;
-            _operation = operation;
             _values = new List<ObservableValue>();
+            Operation = operation;
         }
         public ObservableValue this[int index]
         {
@@ -24,12 +25,12 @@ namespace discrete_machine_app.Model
                 var result = _values.Find(x => x.Number == index);
                 if (result == null)
                 {
-                    result = new ObservableValue(index, _cyclogram, _operation);
+                    result = new ObservableValue(index, _cyclogram, Operation);
                     _values.Add(result);
                 }
                 return result;
             }
         }
-        public string Name { get { return _operation.FullName; } }
+        public string Name { get { return Operation.FullName; } }
     }
 }
