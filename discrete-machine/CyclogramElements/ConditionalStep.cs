@@ -17,14 +17,6 @@ namespace discrete_machine.CyclogramElements
 
     public class ConditionalStep : CyclogramStep
     {
-        public static string[] ConditionsSymbols = 
-            { ">", "<", "=", "<>", "<=", "=>" };
-        public static string Symbol(StepCondition condition)
-        {
-            return ConditionsSymbols[(int)condition];
-        }
-
-
         private readonly StepCondition @operator;
         private readonly int operand;
         public CyclogramStep transition { get; set; }

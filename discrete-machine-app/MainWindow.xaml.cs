@@ -50,16 +50,8 @@ namespace discrete_machine_app
         }
         private ObservableCollection<BindableCyclogramElement> cyclItems = new ObservableCollection<BindableCyclogramElement>();
 
-        private ICommand AddColumnCommand
-        {
-            get {
-                if (_addColumnCommand == null)
-                    _addColumnCommand = new RelayCommand(x => this.AddColumn());
-                return _addColumnCommand;
-            }
-        }
         private ICommand _addColumnCommand;
-        private void AddColumn()
+        private void AddEmptyColumn()
         {
             var machine = ((App)Application.Current).Machine;
             machine.AddStep(new OperationsStep());
@@ -94,11 +86,8 @@ namespace discrete_machine_app
         private void wiresCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if(e.NewItems != null)
-                foreach (var item in e.NewItems)
+                foreach (WireProxy wire in e.NewItems)
                 {
-                    var wire = item as WireProxy;
-                    if (wire == null) continue;
-
                     var c = new Control();
                     c.DataContext = wire;
                     c.Template = FindResource("WireTemplate") as ControlTemplate;
@@ -106,11 +95,8 @@ namespace discrete_machine_app
                     SchemeCanvas.Children.Add(c);
                 }
             if(e.OldItems != null)
-                foreach (var item in e.OldItems)
+                foreach (WireProxy wire in e.OldItems)
                 {
-                    var wire = item as WireProxy;
-                    if (wire == null) continue;
-
                     var uiElement = _wiresControls.First(x => x.DataContext == wire);
                     if (uiElement != null)
                     {
@@ -168,8 +154,7 @@ namespace discrete_machine_app
             
             app.Machine.AddElement(ep);
             var et = AddElement(ep);
-           // var point = e.GetPosition(SchemeCanvas);
-            var position = new Point(250, 350);
+            var position = new Point(50, 50);
             ep.Position = position;
         }
         #endregion
@@ -247,9 +232,25 @@ namespace discrete_machine_app
             SchemeCanvas.Children.Remove(et);
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void AddOperationColumn_Click(object sender, RoutedEventArgs e)
         {
-            this.AddColumn();
+            AddEmptyColumn();
         }
+        private void AddConditionColumn_Click(object sender, RoutedEventArgs e)
+        {
+            var machine = ((App)Application.Current).Machine;
+
+            var operations = machine.Elements.SelectMany(x => x.Input.Concat(x.Output));
+            var diag = new AddConditionStepDialog()
+            {
+                Owner = this,
+                AvailableConnectors = operations
+            };
+            if (diag.ShowDialog() == true)
+            {
+                
+            }
+        }
+
     }
 }

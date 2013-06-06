@@ -160,8 +160,8 @@
                 <DataGrid x:Name="CyclogramGrid" Grid.Row="2" AutoGenerateColumns="False" CanUserReorderColumns="False">
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Добавить столбец" Command="{Binding AddColumnCommand}" Click="MenuItem_Click_1"/>
-                            <MenuItem Header="Добавить условие" />
+                            <MenuItem Header="Добавить столбец" Click="AddOperationColumn_Click"/>
+                            <MenuItem Header="Добавить условие" Click="AddConditionColumn_Click" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

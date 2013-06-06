@@ -8,7 +8,7 @@ namespace discrete_machine.Elements
 {
     public class Counter : Element
     {
-        private readonly Connector _p = new ConnectorIntern();
+        private readonly Connector _p;
 
         public Exception Increment()
         {
@@ -24,8 +24,10 @@ namespace discrete_machine.Elements
 
         public Counter()
         {
+            _p = new ConnectorOut("P", this);
+
             Input = new IConnector[] { };
-            Output = new IConnector[] { };
+            Output = new IConnector[] { _p };
             Operations = new IOperation<Counter>[] {
                 new Operation<Counter>(this) {
                     Name = "+1",

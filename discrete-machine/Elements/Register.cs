@@ -8,10 +8,10 @@ namespace discrete_machine.Elements
 {
     public class Register : Element
     {
-        private readonly Connector _a = new ConnectorIn();
+        private readonly Connector _a;
         private readonly Connector _word = new ConnectorIn();
         private readonly Connector _p = new ConnectorIntern();
-        private readonly Connector _r = new ConnectorOut();
+        private readonly Connector _r;
         private readonly Int16 _count = 4;
 
         public Exception Init()
@@ -45,6 +45,10 @@ namespace discrete_machine.Elements
 
         public Register()
         {
+            Name = "Регистр";
+            _a = new ConnectorIn("X", this);
+            _r = new ConnectorOut("R", this);
+
             Input = new IConnector[] { _a };
             Output = new IConnector[] { _r };
             Operations = new IOperation<Register>[] {

@@ -26,9 +26,9 @@ namespace discrete_machine.Elements
 
         public Summator(string name) : base(name)
         {
-            _a = new ConnectorIn("_x1", this);
-            _b = new ConnectorIn("_x2", this);
-            _r = new ConnectorOut("_r", this);
+            _a = new ConnectorIn("X1", this);
+            _b = new ConnectorIn("X2", this);
+            _r = new ConnectorOut("R", this);
 
             Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };

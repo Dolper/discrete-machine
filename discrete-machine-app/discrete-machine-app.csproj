@@ -61,6 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddConditionStepDialog.xaml.cs">
+      <DependentUpon>AddConditionStepDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CanvasAutoSize.cs" />
     <Compile Include="IntToBitConverter.cs" />
     <Compile Include="Model\BindableCyclogramElement.cs" />
@@ -68,12 +71,17 @@
     <Compile Include="PointToMarginConverter.cs" />
     <Compile Include="Model\MachineAdapter.cs" />
     <Compile Include="Model\WireProxy.cs" />
+    <Compile Include="StepConditionToSymbolConverter.cs" />
     <Compile Include="Stuff\AddOperationEventArgs.cs" />
     <Compile Include="Stuff\BoolToBoolConverter.cs" />
     <Compile Include="Stuff\RelayCommand.cs" />
     <Compile Include="Templates\ElementTemplate.xaml.cs">
       <DependentUpon>ElementTemplate.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddConditionStepDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

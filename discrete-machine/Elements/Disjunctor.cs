@@ -8,9 +8,9 @@ namespace discrete_machine.Elements
 {
     public class Disjunctor : Element
     {
-        private readonly Connector _a = new ConnectorIn();
-        private readonly Connector _b = new ConnectorIn();
-        private readonly Connector _r = new ConnectorOut();
+        private readonly Connector _a;
+        private readonly Connector _b;
+        private readonly Connector _r;
 
         public Exception Disjunct()
         {
@@ -21,6 +21,10 @@ namespace discrete_machine.Elements
 
         public Disjunctor(String name) : base(name)
         {
+            _a = new ConnectorIn("X1", this);
+            _b = new ConnectorIn("X2", this);
+            _r = new ConnectorOut("R", this);
+
             Input = new IConnector[] { _a, _b };
             Output = new IConnector[] { _r };
             Operations = new IOperation<Disjunctor>[] {

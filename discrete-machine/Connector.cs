@@ -25,7 +25,7 @@ namespace discrete_machine
             get
             {
                 if (host != null)
-                    return host.Name + name;
+                    return host.Name + " " + name;
                 return name;
             }
             set
