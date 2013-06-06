@@ -1,4 +1,5 @@
 ﻿using discrete_machine;
+using discrete_machine.Abstract;
 using discrete_machine.CyclogramElements;
 using System;
 using System.Collections.Generic;
@@ -80,12 +81,13 @@ namespace discrete_machine_app.Model
 
         internal ObservableCollection<CyclogramStep> Steps { get; set; }
         internal int NextStep { get { return _machine.Cyclogram.NextStep; } }
-        internal void AddStep(CyclogramStep newStep)
+        internal void AddStep()
         {
-            Steps.Add(newStep);
+            Steps.Add(new OperationsStep());
         }
-        internal void AddCondition()
+        internal void AddCondition(IConnector connector, StepCondition condition, int operand)
         {
+            Steps.Add(new ConditionalStep(connector, condition, operand));
         }
         private void stepsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

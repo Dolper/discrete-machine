@@ -54,23 +54,35 @@ namespace discrete_machine_app
         private void AddEmptyColumn()
         {
             var machine = ((App)Application.Current).Machine;
-            machine.AddStep(new OperationsStep());
+            machine.AddStep();
         }
         private void stepsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             for (int i = 0; i < e.NewItems.Count; i++)
             {
                 var index = e.NewStartingIndex + i;
-                var newCol = new DataGridCheckBoxColumn()
+                var step = e.NewItems[i];
+                if (step is OperationsStep)
                 {
-                    Header = index,
-                    Binding = new Binding("[" + index + "].Value")
+                    var newCol = new DataGridCheckBoxColumn()
                     {
-                        Mode = BindingMode.TwoWay,
-                        Converter = new BoolToBoolConverter(),
-                    }
-                };
-                CyclogramGrid.Columns.Add(newCol);
+                        Header = index,
+                        Binding = new Binding("[" + index + "].Value")
+                        {
+                            Mode = BindingMode.TwoWay,
+                            Converter = new BoolToBoolConverter(),
+                        }
+                    };
+                    CyclogramGrid.Columns.Add(newCol);
+                }
+                else if (step is ConditionalStep)
+                {
+                    var newCol = new DataGridTextColumn()
+                    {
+                        Header = index,
+                    };
+                    CyclogramGrid.Columns.Add(newCol);
+                }
             }
         }
         public void AddNewOperation(object sender, AddOperationEventArgs e)
@@ -239,7 +251,6 @@ namespace discrete_machine_app
         private void AddConditionColumn_Click(object sender, RoutedEventArgs e)
         {
             var machine = ((App)Application.Current).Machine;
-
             var operations = machine.Elements.SelectMany(x => x.Input.Concat(x.Output));
             var diag = new AddConditionStepDialog()
             {
@@ -247,9 +258,7 @@ namespace discrete_machine_app
                 AvailableConnectors = operations
             };
             if (diag.ShowDialog() == true)
-            {
-                
-            }
+                machine.AddCondition(diag.Connector, diag.StepCondition, diag.Operand);
         }
 
     }

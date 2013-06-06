@@ -74,6 +74,7 @@
     <Compile Include="StepConditionToSymbolConverter.cs" />
     <Compile Include="Stuff\AddOperationEventArgs.cs" />
     <Compile Include="Stuff\BoolToBoolConverter.cs" />
+    <Compile Include="Stuff\ConditionStepColumn.cs" />
     <Compile Include="Stuff\RelayCommand.cs" />
     <Compile Include="Templates\ElementTemplate.xaml.cs">
       <DependentUpon>ElementTemplate.xaml</DependentUpon>

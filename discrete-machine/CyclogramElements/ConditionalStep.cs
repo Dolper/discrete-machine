@@ -1,4 +1,5 @@
-﻿using System;
+﻿using discrete_machine.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,9 @@ namespace discrete_machine.CyclogramElements
         private readonly StepCondition @operator;
         private readonly int operand;
         public CyclogramStep transition { get; set; }
-        public Connector Connector { get; set; }
+        public IConnector Connector { get; set; }
 
-        public ConditionalStep(Connector connector, StepCondition @operator, int operand)
+        public ConditionalStep(IConnector connector, StepCondition @operator, int operand)
         {
             this.Connector = connector;
             this.@operator = @operator;
