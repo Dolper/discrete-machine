@@ -47,6 +47,13 @@ namespace discrete_machine
             Steps.Insert(newStepNum, elem);
         }
 
-
+        public void AddEmptyOperationsStep()
+        {
+            Steps.Add(new OperationsStep());
+        }
+        public void AddCondition(IConnector connector, StepCondition condition, int operand)
+        {
+            Steps.Add(new ConditionalStep(connector, condition, operand));
+        }
     }
 }

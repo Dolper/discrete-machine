@@ -36,7 +36,7 @@ namespace discrete_machine_app
             var machine = app.Machine = new MachineAdapter();
 
             machine.Wires.CollectionChanged += wiresCollectionChanged;
-            machine.Steps.CollectionChanged += stepsCollectionChanged;
+            machine.Cyclogram.Steps.CollectionChanged += stepsCollectionChanged;
 
             CyclogramGrid.Columns.Add(new DataGridTextColumn()
             {
@@ -51,26 +51,27 @@ namespace discrete_machine_app
             AddWireOperationCommand = new RelayCommand(param =>
             {
                 var p = param as WireProxy;
-                // TODO: throw exception
-                if (p == null) return;
+                if (p == null) throw new ArgumentException("Param Type");
                 var elem = new BindableCyclogramElement(machine.Cyclogram, p.Wire);
                 cyclItems.Add(elem);
             });
             RemoveWireOperationCommand = new RelayCommand(param =>
             {
                 var p = param as WireProxy;
-                // TODO: throw exception
-                if (p == null) return;
+                if (p == null) throw new ArgumentException("Param Type");
                 machine.RemoveWire(p);
             });
         }
+
+        /// <summary>
+        /// DataSource for Cyclogram Grid
+        /// </summary>
         private ObservableCollection<BindableCyclogramElement> cyclItems = new ObservableCollection<BindableCyclogramElement>();
 
-        private ICommand _addColumnCommand;
+        #region Cyclogram
         private void AddEmptyColumn()
         {
-            var machine = ((App)Application.Current).Machine;
-            machine.AddEmptyOperationsStep();
+            ((App)Application.Current).Machine.Cyclogram.AddEmptyOperationsStep();
         }
         private void stepsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -108,9 +109,30 @@ namespace discrete_machine_app
             cyclItems.Add(elem);
             //CyclogramGrid.Items.Add(elem);
         }
+        private void AddOperationColumn_Click(object sender, RoutedEventArgs e)
+        {
+            AddEmptyColumn();
+        }
+        private void AddConditionColumn_Click(object sender, RoutedEventArgs e)
+        {
+            var machine = ((App)Application.Current).Machine;
+            var operations = machine.Elements.SelectMany(x => x.Input.Concat(x.Output));
+            var diag = new AddConditionStepDialog()
+            {
+                Owner = this,
+                AvailableConnectors = operations
+            };
+            if (diag.ShowDialog() == true)
+                machine.Cyclogram.AddCondition(diag.Connector, diag.StepCondition, diag.Operand);
+        }
+        #endregion Cyclogram
+
+        /// <summary>
+        /// Fast access to wireses Controls on Canvas
+        /// </summary>
+        private List<Control> _wiresControls = new List<Control>();
 
         #region Wires
-        private List<Control> _wiresControls = new List<Control>();
         private void wiresCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if(e.NewItems != null)
@@ -143,7 +165,7 @@ namespace discrete_machine_app
             if(e.OldItems != null)
                 foreach (WireProxy wire in e.OldItems)
                 {
-                    RemoveCyclogramRowsWith(new IOperation[] { wire.Wire });
+                    CleanCyclogramRowsForOperations(new IOperation[] { wire.Wire });
 
                     var uiElement = _wiresControls.First(x => x.DataContext == wire);
                     if (uiElement != null)
@@ -154,7 +176,6 @@ namespace discrete_machine_app
                 }
         }
         #endregion Wires
-
 
         #region ElementCreation
         private ElementTemplate AddElement(ElementProxy el)
@@ -205,6 +226,16 @@ namespace discrete_machine_app
             var position = new Point(50, 50);
             ep.Position = position;
         }
+        private void MenuItem_Click(object sender, EventArgs e)
+        {
+            Label_MouseDown(sender, e);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Label_MouseDown(sender, e);
+        }
+
         #endregion
 
         #region ElementMoving
@@ -252,19 +283,9 @@ namespace discrete_machine_app
                 isDragging = false;
             }
         }
-        #endregion
+        #endregion ElementMoving
 
-
-        private void MenuItem_Click(object sender, EventArgs e)
-        {
-            Label_MouseDown(sender, e);
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Label_MouseDown(sender, e);
-        }
-
+        #region ElementDeletion
         public void DeleteElement(object sender, EventArgs e)
         {
             var et = sender as ElementTemplate;
@@ -272,35 +293,17 @@ namespace discrete_machine_app
             
             var machine = ((App)Application.Current).Machine;
             machine.RemoveElement(et.Model);
-
-            RemoveCyclogramRowsWith(et.Model.Operations);
+            CleanCyclogramRowsForOperations(et.Model.Operations);
 
             SchemeCanvas.Children.Remove(et);
         }
-
-        private void RemoveCyclogramRowsWith(IEnumerable<IOperation> operations)
+        private void CleanCyclogramRowsForOperations(IEnumerable<IOperation> operations)
         {
             var cyclogramRowsToDelete = cyclItems.Where(x => operations.Contains(x.Operation)).ToList();
             foreach (var row in cyclogramRowsToDelete)
                 cyclItems.Remove(row);
         }
-
-        private void AddOperationColumn_Click(object sender, RoutedEventArgs e)
-        {
-            AddEmptyColumn();
-        }
-        private void AddConditionColumn_Click(object sender, RoutedEventArgs e)
-        {
-            var machine = ((App)Application.Current).Machine;
-            var operations = machine.Elements.SelectMany(x => x.Input.Concat(x.Output));
-            var diag = new AddConditionStepDialog()
-            {
-                Owner = this,
-                AvailableConnectors = operations
-            };
-            if (diag.ShowDialog() == true)
-                machine.AddCondition(diag.Connector, diag.StepCondition, diag.Operand);
-        }
+        #endregion ElementDeletion
 
         private ICommand AddWireOperationCommand;
         private ICommand RemoveWireOperationCommand;

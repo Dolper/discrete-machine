@@ -81,26 +81,6 @@ namespace discrete_machine_app.Model
 
         #endregion
 
-        #region Cyclogram stuff
-
-        public int NextStep { get { return _machine.Cyclogram.NextStep; } }
-        public void AddEmptyOperationsStep()
-        {
-            _machine.Cyclogram.Steps.Add(new OperationsStep());
-        }
-        public void AddCondition(IConnector connector, StepCondition condition, int operand)
-        {
-            _machine.Cyclogram.Steps.Add(new ConditionalStep(connector, condition, operand));
-        }
-        public ObservableCollection<CyclogramStep> Steps
-        {
-            get { return _machine.Cyclogram.Steps; }
-        }
-        public Cyclogram Cyclogram
-        {
-            get { return _machine.Cyclogram; }
-        }
-        
-        #endregion
+        public Cyclogram Cyclogram { get { return _machine.Cyclogram; } }
     }
 }
