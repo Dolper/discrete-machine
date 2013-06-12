@@ -19,8 +19,13 @@ namespace discrete_machine.Elements
         {
             if (_a.Value > 1 || _b.Value > 1) return new Exception("Входные данные в сумматор не валидны");
             var result = _a.Value + _b.Value + _p.Value;
-            _p.Value = result & 2;
-            _r.Value = result & 1;
+            if (result > 0)
+            {
+                _r.Value = 1;
+                _p.Value = result - _r.Value;
+            }
+            else _p.Value = 0;
+
             return null;
         }
 
