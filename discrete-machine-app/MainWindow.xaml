@@ -5,11 +5,17 @@
         Title="Discrete Machine" Height="579.325" Width="1038.179">
     
     <Window.Resources>
+        <ContextMenu x:Key="WireContextMenu">
+            <MenuItem Header="Запуск" Command="{Binding AddWireOperationCommand}" />
+            <Separator />
+            <MenuItem Header="Удалить" IsEnabled="False" />
+        </ContextMenu>
         <ControlTemplate x:Key="WireTemplate">
             <Canvas>
                 <Ellipse Height="10" Width="10" Fill="Red"
                          StrokeThickness="1" Stroke="Black"
-                         Canvas.Left="{Binding In.X}" Canvas.Top="{Binding In.Y}" >
+                         Canvas.Left="{Binding In.X}" Canvas.Top="{Binding In.Y}"
+                         ContextMenu="{TemplateBinding ContextMenu}" >
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="-5" Y="-5" />
                     </Ellipse.RenderTransform>
@@ -17,7 +23,8 @@
 
                 <Ellipse Height="10" Width="10" Fill="Red"
                          StrokeThickness="1" Stroke="Black"
-                         Canvas.Left="{Binding Out.X}" Canvas.Top="{Binding Out.Y}" >
+                         Canvas.Left="{Binding Out.X}" Canvas.Top="{Binding Out.Y}"
+                         ContextMenu="{TemplateBinding ContextMenu}" >
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="-5" Y="-5" />
                     </Ellipse.RenderTransform>
@@ -26,7 +33,8 @@
                 <Line X1="{Binding In.X}" Y1="{Binding In.Y}" 
                       X2="{Binding Out.X}" Y2="{Binding Out.Y}"
                       Stroke="Red"
-                      StrokeThickness="1">
+                      StrokeThickness="1"
+                      ContextMenu="{TemplateBinding ContextMenu}">
                 </Line>
             </Canvas>
         </ControlTemplate>
@@ -119,6 +127,7 @@
             </Grid.ColumnDefinitions>
             <ScrollViewer>
                 <Canvas x:Name="SchemeCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="0" Height="0">
+
                 </Canvas>
             </ScrollViewer>
             <Grid Grid.Column="1">

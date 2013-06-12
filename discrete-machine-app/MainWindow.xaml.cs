@@ -47,6 +47,22 @@ namespace discrete_machine_app
                 },
             });
             CyclogramGrid.ItemsSource = cyclItems;
+
+            AddWireOperationCommand = new RelayCommand(param =>
+            {
+                var p = param as WireProxy;
+                // TODO: throw exception
+                if (p == null) return;
+                var elem = new BindableCyclogramElement(machine.Cyclogram, p.Wire);
+                cyclItems.Add(elem);
+            });
+            RemoveWireOperationCommand = new RelayCommand(param =>
+            {
+                var p = param as WireProxy;
+                // TODO: throw exception
+                if (p == null) return;
+                machine.RemoveWire(p);
+            });
         }
         private ObservableCollection<BindableCyclogramElement> cyclItems = new ObservableCollection<BindableCyclogramElement>();
 
@@ -100,15 +116,35 @@ namespace discrete_machine_app
             if(e.NewItems != null)
                 foreach (WireProxy wire in e.NewItems)
                 {
+                    var menu = new ContextMenu();
+                    var addItem = new MenuItem()
+                    {
+                        Header = "Запустить",
+                        Command = AddWireOperationCommand,
+                        CommandParameter = wire,
+                    };
+                    var removeItem = new MenuItem()
+                    {
+                        Header = "Удалить",
+                        Command = RemoveWireOperationCommand,
+                        CommandParameter = wire,
+                    };
+                    menu.Items.Add(addItem);
+                    menu.Items.Add(new Separator());
+                    menu.Items.Add(removeItem);
+
                     var c = new Control();
                     c.DataContext = wire;
                     c.Template = FindResource("WireTemplate") as ControlTemplate;
+                    c.ContextMenu = menu;
                     _wiresControls.Add(c);
                     SchemeCanvas.Children.Add(c);
                 }
             if(e.OldItems != null)
                 foreach (WireProxy wire in e.OldItems)
                 {
+                    RemoveCyclogramRowsWith(new IOperation[] { wire.Wire });
+
                     var uiElement = _wiresControls.First(x => x.DataContext == wire);
                     if (uiElement != null)
                     {
@@ -237,11 +273,16 @@ namespace discrete_machine_app
             var machine = ((App)Application.Current).Machine;
             machine.RemoveElement(et.Model);
 
-            var cyclogramRowsToDelete = cyclItems.Where(x => et.Model.Operations.Contains(x.Operation)).ToList();
-            foreach (var row in cyclogramRowsToDelete)
-                cyclItems.Remove(row);
+            RemoveCyclogramRowsWith(et.Model.Operations);
 
             SchemeCanvas.Children.Remove(et);
+        }
+
+        private void RemoveCyclogramRowsWith(IEnumerable<IOperation> operations)
+        {
+            var cyclogramRowsToDelete = cyclItems.Where(x => operations.Contains(x.Operation)).ToList();
+            foreach (var row in cyclogramRowsToDelete)
+                cyclItems.Remove(row);
         }
 
         private void AddOperationColumn_Click(object sender, RoutedEventArgs e)
@@ -261,5 +302,7 @@ namespace discrete_machine_app
                 machine.AddCondition(diag.Connector, diag.StepCondition, diag.Operand);
         }
 
+        private ICommand AddWireOperationCommand;
+        private ICommand RemoveWireOperationCommand;
     }
 }

@@ -88,7 +88,14 @@ namespace discrete_machine
 
         public string FullName
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                // TODO: Handle
+                if (In != null && Out != null)
+                    return string.Format("{0} -> {1}", Out.Name, In.Name);
+
+                return "???";
+            }
         }
     }
 }

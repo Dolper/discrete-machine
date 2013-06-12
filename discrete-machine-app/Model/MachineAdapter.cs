@@ -47,6 +47,11 @@ namespace discrete_machine_app.Model
         internal void RemoveWire(WireProxy wire)
         {
             Wires.Remove(wire);
+            foreach (var item in _machine.Cyclogram.Steps)
+            {
+                if (item is OperationsStep)
+                    (item as OperationsStep).RemoveOperation(wire.Wire);
+            }
             _machine.Wires.Remove(wire.Wire);
         }
 
