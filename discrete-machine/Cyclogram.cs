@@ -3,6 +3,7 @@ using discrete_machine.CyclogramElements;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,12 @@ namespace discrete_machine
 {
     public class Cyclogram
     {
-        public ArrayList Steps { get; set; }
+        public ObservableCollection<CyclogramStep> Steps { get; set; }
         public int NextStep { get; set; }
 
         public Cyclogram()
         {
-            Steps = new ArrayList();
+            Steps = new ObservableCollection<CyclogramStep>();
             NextStep = 0;
         }
 
@@ -45,5 +46,7 @@ namespace discrete_machine
             Steps.RemoveAt(oldStepNum);
             Steps.Insert(newStepNum, elem);
         }
+
+
     }
 }

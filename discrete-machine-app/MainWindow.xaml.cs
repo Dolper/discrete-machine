@@ -70,7 +70,7 @@ namespace discrete_machine_app
         private void AddEmptyColumn()
         {
             var machine = ((App)Application.Current).Machine;
-            machine.AddStep();
+            machine.AddEmptyOperationsStep();
         }
         private void stepsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

@@ -12,6 +12,8 @@ namespace discrete_machine_app.Model
 {
     public class WireProxy
     {
+        public WireProxy() { }
+
         public WireProxy(Wire wire)
         {
             Wire = wire;

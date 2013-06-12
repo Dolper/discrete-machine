@@ -33,7 +33,7 @@
                 <Line X1="{Binding In.X}" Y1="{Binding In.Y}" 
                       X2="{Binding Out.X}" Y2="{Binding Out.Y}"
                       Stroke="Red"
-                      StrokeThickness="1"
+                      StrokeThickness="2"
                       ContextMenu="{TemplateBinding ContextMenu}">
                 </Line>
             </Canvas>
